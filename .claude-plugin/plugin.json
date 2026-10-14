@@ -1,0 +1,8 @@
+{
+  "name": "ae",
+  "description": "Agentic Engineering v5: an evidence-led, human-governed software lifecycle. /ae:ae routes a request to 19 specialist skills (triage, learn, investigate, plan, execute, verify, review, pr-review, bugfix, feature, release, deploy and more), with shared policies, task-state scripts, templates and a guard hook for high-impact shell commands.",
+  "author": {
+    "name": "Ivan Torres Garcia"
+  },
+  "keywords": ["workflow", "skills", "agentic-engineering", "review", "verification"]
+}

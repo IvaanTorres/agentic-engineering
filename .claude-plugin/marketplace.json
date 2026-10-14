@@ -1,0 +1,14 @@
+{
+  "name": "agentic-engineering",
+  "description": "Personal marketplace for the Agentic Engineering (ae) plugin.",
+  "owner": {
+    "name": "Ivan Torres Garcia"
+  },
+  "plugins": [
+    {
+      "name": "ae",
+      "description": "Agentic Engineering v5: /ae:ae entry point, 19 specialist skills, policies, scripts, templates and a guard hook.",
+      "source": "."
+    }
+  ]
+}
