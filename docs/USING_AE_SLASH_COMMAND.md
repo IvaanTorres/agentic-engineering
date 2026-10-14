@@ -17,7 +17,7 @@ Install the `ae` plugin (see the repository README), then start or restart Claud
 ## Install
 
 ```text
-/plugin marketplace add <owner>/<repo>
+/plugin marketplace add IvaanTorres/agentic-engineering
 /plugin install ae@agentic-engineering
 ```
 

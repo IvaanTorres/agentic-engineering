@@ -7,18 +7,18 @@ A personal Claude Code plugin that packages the Agentic Engineering v5 toolkit: 
 Requires Claude Code, `git` access to this repo, and `python3` (for the scripts and the guard hook).
 
 ```text
-/plugin marketplace add <owner>/<repo>
+/plugin marketplace add IvaanTorres/agentic-engineering
 /plugin install ae@agentic-engineering
 ```
 
 Or from a shell:
 
 ```bash
-claude plugin marketplace add <owner>/<repo>
+claude plugin marketplace add IvaanTorres/agentic-engineering
 claude plugin install ae@agentic-engineering
 ```
 
-For a private GitHub repo, Claude Code uses your existing git credentials: an SSH key loaded in `ssh-agent`, or HTTPS after `gh auth login && gh auth setup-git`. Set `CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1` if you don't use SSH.
+If the repo is private, Claude Code uses your existing git credentials: an SSH key loaded in `ssh-agent`, or HTTPS after `gh auth login && gh auth setup-git`. Set `CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1` if you don't use SSH.
 
 To try it without installing, from a clone: `claude --plugin-dir /path/to/this/repo`.
 
