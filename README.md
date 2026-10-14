@@ -49,7 +49,7 @@ Everything is namespaced under `ae:`. Skills whose names don't clash with a buil
 | `/ae:release`, `/ae:deploy` | Release preparation; deploy stops at approval gates (user-invoked only) |
 | `/ae:record` | Record a reusable fix or decision |
 
-The `ae:verification-auditor` subagent gives an independent, read-only PASS/FAIL/BLOCKED verdict on whether a change is backed by fresh evidence.
+Two read-only subagents back up the skills: `ae:reviewer` reviews a diff with a fresh context (used by `review` and `ship` for medium-or-higher risk), and `ae:verification-auditor` gives a PASS/FAIL/BLOCKED verdict on whether a change is backed by fresh evidence.
 
 ### How it works with a sprint team
 
@@ -57,6 +57,7 @@ The `ae:verification-auditor` subagent gives an independent, read-only PASS/FAIL
 - **Tests by default:** behavior changes and bug fixes get tests (a failing regression test first for bugs); skipping one needs a stated reason (`policies/testing.md`).
 - **Challenge questions:** `/ae:pr-review` and `/ae:ship` ask you 3–5 questions about the specific change (edge cases, side effects, decisions, tests) and wait for your answers, so you can defend what you approve or deliver (`policies/challenge.md`). Say `quick` to skip.
 - **Reactive work:** hotfix mode in `/ae:fix`, review feedback and CI failures in `/ae:pr-fix`.
+- **UI changes are checked in a browser** by `/ae:verify` (states, viewports, console, accessibility, screenshots), or marked NOT RUN with a manual checklist.
 
 ### Learning from the work
 
@@ -67,13 +68,13 @@ Every skill that changes, reviews or explains something non-trivial ends with a 
 ```text
 .claude-plugin/   plugin.json and marketplace.json
 skills/           19 skills (ae entry point + 18 specialists)
-agents/           verification-auditor subagent
+agents/           reviewer and verification-auditor subagents
 hooks/hooks.json  PreToolUse guard for high-impact Bash commands
 scripts/          task_state.py, workflow_gate.py, validate_artifact.py, guard_high_impact.py
 policies/         approval gates, evidence, testing, challenge questions, team/sprint workflow, knowledge transfer, expert lenses, lifecycle, safety
 templates/        task artifacts, plus CLAUDE.working-agreement.md to merge into a project's CLAUDE.md
 docs/             quickstart and /ae usage; docs/history/ holds the original toolkit's design docs and audits
-evals/            evaluation cases and scorecard
+evals/            plugin eval cases (one folder each); scenarios.json is the original toolkit's scenario list
 tests/            unit tests for the scripts
 ```
 
@@ -88,7 +89,10 @@ Skills read shared files through `${CLAUDE_PLUGIN_ROOT}`, which Claude Code repl
 ```bash
 python3 -m unittest discover -s tests   # script tests
 claude plugin validate .                # plugin + marketplace manifests
+claude plugin eval . --scaffold --ablation none --allow-tools Edit Write Agent "Bash(python3:*)" "Bash(git status:*)" "Bash(git diff:*)" "Bash(git log:*)" "Bash(git show:*)" "Bash(git branch:*)" "Bash(git check-ignore:*)" "Bash(git stash:*)"
 ```
+
+The eval suite runs each case in a throwaway sandbox repo (a tiny Python shop package) and checks the behaviors that matter most: `/ae` routes a bug ticket to `fix` and writes a failing test first, `ship` challenges you instead of committing, `explain` stays read-only, an unclear ticket gets questions instead of code, and `review` finds a caller broken outside the diff. Each case runs once by default; pass `--runs 3` for a steadier score. Drop `--ablation none` to compare against Claude without the plugin. Results go to `evals/results/` (git-ignored).
 
 When adding or changing a skill, follow `policies/skill-contract.md`.
 
