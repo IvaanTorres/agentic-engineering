@@ -12,9 +12,10 @@ description: Independently verify that a code change meets acceptance criteria a
 4. Inspect exit codes and relevant output. A command being started is not evidence of passing.
 5. Map every acceptance criterion (from the ticket when there is one) to evidence: test name/output, build result, manual observation, or an explicit gap.
 6. Check test adequacy against `${CLAUDE_PLUGIN_ROOT}/policies/testing.md`: required tests present, tests that would fail without the change, edge cases and failure paths covered. Also check for regressions, accidental file changes, flaky or environment-dependent results, missing migrations, and the team's definition of done (`${CLAUDE_PLUGIN_ROOT}/policies/team-workflow.md`).
-7. If checks fail, report the failure and route to `/ae:debug` or `/ae:implement`. Do not approve completion while required checks are failing or unknown.
-8. Write `.agentic/tasks/<task-id>/verification.md` using `${CLAUDE_PLUGIN_ROOT}/templates/verification.md`, then check its structure with `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/validate_artifact.py .agentic/tasks/<task-id>/verification.md`.
-9. For medium-or-higher risk tasks, also get an independent verdict from the `ae:verification-auditor` subagent and record it. It supplements your own checks; it does not replace them.
+7. **UI changes:** check them in a browser, not only with commands. Start the app with the repository's documented dev command (ask before installing dependencies or changing the environment, and never use production data). Open the affected pages with an available browser tool (for example Chrome DevTools or Claude in Chrome), then check the acceptance criteria, loading, error and empty states, a narrow and a wide viewport, the browser console for errors, and basic accessibility (keyboard focus, labels). Save screenshots as evidence. If no browser tool is available or the app can't start, mark UI verification NOT RUN and give the user a short manual checklist.
+8. If checks fail, report the failure and route to `/ae:debug` or `/ae:implement`. Do not approve completion while required checks are failing or unknown.
+9. Write `.agentic/tasks/<task-id>/verification.md` using `${CLAUDE_PLUGIN_ROOT}/templates/verification.md`, then check its structure with `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/validate_artifact.py .agentic/tasks/<task-id>/verification.md`.
+10. For medium-or-higher risk tasks, also get an independent verdict from the `ae:verification-auditor` subagent and record it. It supplements your own checks; it does not replace them.
 
 ## Output contract
 Return PASS / FAIL / BLOCKED per criterion; commands and outcomes; coverage gaps; environmental limitations; residual risks; and the next action.

@@ -22,6 +22,7 @@ Act as a skeptical reviewer. Prioritize real defects over style preferences. Do 
 3. For each finding, provide severity, file/line or symbol, a concrete failure scenario, and a suggested correction.
 4. Verify that each finding is supported by the diff or repository evidence. Label uncertain concerns as questions, not confirmed defects.
 5. Check whether the verification report accurately represents actual command results.
+   For medium-or-higher risk, or when you wrote the change yourself, also run the `ae:reviewer` subagent on the same diff and acceptance criteria. It reviews with a fresh context; merge its findings with yours and note where you disagree.
 6. Save findings to `.agentic/tasks/<task-id>/review.md` using `${CLAUDE_PLUGIN_ROOT}/templates/review.md`, and check its structure with `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/validate_artifact.py .agentic/tasks/<task-id>/review.md`.
 
 7. If the user wants to understand the change rather than just get findings, challenge them following `${CLAUDE_PLUGIN_ROOT}/policies/challenge.md`.

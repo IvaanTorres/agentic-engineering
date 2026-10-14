@@ -20,7 +20,8 @@ argument-hint: <PR number or URL> [quick]
 2. **Correctness by risk surface:** logic and edge cases, error paths, security/auth, data integrity and migrations, concurrency and ordering, compatibility, performance, observability, accessibility for UI, rollout and feature flags.
 3. **Beyond the diff:** find callers and consumers of every changed function, type, endpoint, schema, event, or config key, including other services and the frontend/backend counterpart. Check that contracts still hold and look for side effects the author may not have seen.
 4. **Tests:** apply `${CLAUDE_PLUGIN_ROOT}/policies/testing.md`. Would the tests fail if the change were reverted? Which edge cases and failure paths are untested? Are mocks hiding the behavior that matters? Run the relevant tests in the temporary worktree when the environment allows; otherwise say they were not run and why.
-5. **Findings:** for each, give severity (Blocker, High, Medium, Low, Question), file/line, a concrete triggering scenario, impact, and a fix direction. Validate each against code or tests, deduplicate, and calibrate confidence; label uncertain concerns as questions. No style preferences as defects.
+5. **UI changes:** list the states and flows a reviewer should click through (from the acceptance criteria and the design). If the user asks, run the app from the temporary worktree and check them in a browser as in `/ae:verify`.
+6. **Findings:** for each, give severity (Blocker, High, Medium, Low, Question), file/line, a concrete triggering scenario, impact, and a fix direction. Validate each against code or tests, deduplicate, and calibrate confidence; label uncertain concerns as questions. No style preferences as defects.
 
 ## Challenge the reviewer
 Unless the user asked for a quick review, follow `${CLAUDE_PLUGIN_ROOT}/policies/challenge.md` before giving the verdict:

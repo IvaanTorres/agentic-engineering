@@ -17,7 +17,8 @@ argument-hint: <optional ticket, base branch, or "quick">
 3. Check tests against `${CLAUDE_PLUGIN_ROOT}/policies/testing.md`. If a required test is missing, say so and offer to add it (via `/ae:implement`) before shipping.
 4. Catch accidental content: debug output, commented-out code, stray TODOs, unrelated files, generated churn, secrets, local config, `.agentic/` artifacts.
 5. Run the relevant checks (lint, types, tests) at the current HEAD unless `/ae:verify` already did for this exact HEAD. Report failures; don't ship on red without the user's explicit decision.
-6. For medium-or-higher risk or a large diff, run `/ae:review` if it hasn't run on this HEAD.
+6. For medium-or-higher risk or a large diff, run `/ae:review` (which brings in the independent `ae:reviewer` subagent) if it hasn't run on this HEAD.
+7. For UI changes, make sure the browser check in `/ae:verify` ran on this HEAD; otherwise run it or put manual QA steps in the PR.
 
 ## 3. Make sure the user understands it
 Unless the user asked for a quick ship:
