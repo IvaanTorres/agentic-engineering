@@ -131,6 +131,15 @@ class ArtifactValidatorTests(unittest.TestCase):
         self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
         self.assertIn("PASS:", proc.stdout)
 
+    def test_execution_log_template_structure_passes(self):
+        proc = self.run_validator((ROOT / "templates" / "execution-log.md").read_text(), "execution-log.md")
+        self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+
+    def test_execution_log_requires_decisions_table(self):
+        proc = self.run_validator("## Decisions\n## Steps\n## Deviations from plan\n", "execution-log.md")
+        self.assertEqual(proc.returncode, 1)
+        self.assertIn("table header: Alternatives considered", proc.stdout)
+
     def test_review_template_structure_passes(self):
         proc = self.run_validator((ROOT / "templates" / "review.md").read_text(), "review.md")
         self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)

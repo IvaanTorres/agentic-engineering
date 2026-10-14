@@ -4,16 +4,16 @@ Use the project's existing conventions and tests. Prefer the smallest safe chang
 
 ## Workflow routing
 
-- Start with `/triage` when intent, task size, or risk makes the right path unclear. Choose the lightest adequate workflow; a no-change or read-only outcome is valid.
+- Start with `/ae <request>` when intent, task size, or risk makes the right path unclear. Choose the lightest adequate workflow; a no-change or read-only outcome is valid.
 - Learning/explanation: `/ae:retrospect` (read-only by default).
 - Small, clear, reversible change: implement narrowly, run targeted verification, and inspect the diff; do not generate a heavyweight plan by default.
-- Bug: reproduce, use `/debug` to identify root cause, add a regression test where practical, then `/verify` and `/review`.
-- Feature or cross-cutting change: `/investigate` → proportional `/plan` → bounded `/execute` tasks → `/simplify` when useful → `/verify` → `/review`.
-- Spike/feasibility: `/spike` with a timebox, isolated experiment, explicit recommendation, and cleanup status.
-- Refactor: `/refactor` with behavior invariants and a baseline before structural changes.
-- PR review: `/pr-review` against the exact base/head, read-only by default. PR comments or CI feedback: `/pr-feedback`.
-- Interrupted work: `/resume` and reconcile artifacts with actual repository state before continuing.
-- Release or production change: `/release` and `/deploy`; do not perform production-impacting actions without explicit human approval.
+- Bug: reproduce, use `/ae:debug` to identify root cause, add a regression test where practical, then `/ae:verify` and `/ae:review`.
+- Feature or cross-cutting change: `/ae:investigate` → proportional `/ae:plan` → bounded `/ae:execute` tasks → simplify pass when useful → `/ae:verify` → `/ae:review` → `/ae:ship`.
+- Spike/feasibility: `/ae:spike` with a timebox, isolated experiment, explicit recommendation, and cleanup status.
+- Refactor: `/ae:refactor` with behavior invariants and a baseline before structural changes.
+- PR review: `/ae:pr-review` against the exact base/head, read-only by default. PR comments or CI feedback: `/ae:pr-feedback`.
+- Interrupted work: `/ae:resume` and reconcile artifacts with actual repository state before continuing.
+- Release or production change: `/ae:release` and `/ae:deploy`; do not perform production-impacting actions without explicit human approval.
 
 ## Task persona and context continuity
 

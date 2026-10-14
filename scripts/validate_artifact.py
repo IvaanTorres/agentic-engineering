@@ -23,12 +23,14 @@ REQUIRED_HEADINGS = {
         "Recommended next step"
     ],
     "review.md": ["Findings (highest severity first)", "Checks performed", "Verdict"],
+    "execution-log.md": ["Decisions", "Steps", "Deviations from plan"],
 }
 REQUIRED_LABELS = {
     "release-record.md": ["Environment", "Explicit approver and approval reference", "Smoke tests / health checks", "Result"]
 }
 REQUIRED_TABLE_HEADERS = {
     "verification.md": ["Acceptance criterion", "Evidence / command", "Result (PASS/FAIL/BLOCKED)"],
+    "execution-log.md": ["Decision", "Alternatives considered", "Why this one"],
 }
 
 def normalize(text: str) -> str:

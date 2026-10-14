@@ -15,4 +15,4 @@ description: Prepare a release candidate, verify release readiness, and coordina
 8. Produce a release record using `${CLAUDE_PLUGIN_ROOT}/templates/release-record.md` (add `${CLAUDE_PLUGIN_ROOT}/templates/incident-and-rollback.md` if the rollout had an incident or rollback), check it with `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/validate_artifact.py <path>`, and document lessons from incidents or unusual failures.
 
 ## Shared policies
-Follow `${CLAUDE_PLUGIN_ROOT}/policies/approval-gates.md` and `${CLAUDE_PLUGIN_ROOT}/policies/evidence-policy.md`, including when this skill is invoked directly rather than through `/ae:ae`.
+Follow `${CLAUDE_PLUGIN_ROOT}/policies/approval-gates.md` and `${CLAUDE_PLUGIN_ROOT}/policies/evidence-policy.md`, including when this skill is invoked directly rather than through `/ae:ae`. When the skill changed, reviewed, or explained something non-trivial, end with the debrief from `${CLAUDE_PLUGIN_ROOT}/policies/knowledge-transfer.md`.

@@ -30,4 +30,4 @@ For tasks with a manifest, validate it before reporting:
 A stale-head result is a signal to reassess and rerun relevant checks, not proof that every check is stale or fresh. Confirm evidence covers the files/configuration under review. Record exact command, exit code, environment, timestamp, result, summary, and commit SHA. If a manifest is absent for a small task, include the same evidence fields in the final summary.
 
 ## Shared policies
-Follow `${CLAUDE_PLUGIN_ROOT}/policies/approval-gates.md` and `${CLAUDE_PLUGIN_ROOT}/policies/evidence-policy.md`, including when this skill is invoked directly rather than through `/ae:ae`.
+Follow `${CLAUDE_PLUGIN_ROOT}/policies/approval-gates.md` and `${CLAUDE_PLUGIN_ROOT}/policies/evidence-policy.md`, including when this skill is invoked directly rather than through `/ae:ae`. When the skill changed, reviewed, or explained something non-trivial, end with the debrief from `${CLAUDE_PLUGIN_ROOT}/policies/knowledge-transfer.md`.
