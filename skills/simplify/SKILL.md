@@ -14,3 +14,6 @@ description: Reduce unnecessary complexity in a proposed or existing change with
 
 ## Output contract
 Candidate complexity; changes made (or why none were warranted); behavior-preservation evidence; test results; residual tradeoffs.
+
+## Shared policies
+Follow `${CLAUDE_PLUGIN_ROOT}/policies/approval-gates.md` and `${CLAUDE_PLUGIN_ROOT}/policies/evidence-policy.md`, including when this skill is invoked directly rather than through `/ae:ae`.

@@ -17,3 +17,6 @@ description: Run the standard end-to-end workflow for a nontrivial feature: inve
 10. Do not deploy as part of this workflow unless the user separately requests it and `/ae:deploy` obtains the required approval.
 
 Keep the process proportional. For trivial tasks, skip this composed workflow and use the smallest appropriate skill.
+
+## Shared policies
+Follow `${CLAUDE_PLUGIN_ROOT}/policies/approval-gates.md` and `${CLAUDE_PLUGIN_ROOT}/policies/evidence-policy.md`, including when this skill is invoked directly rather than through `/ae:ae`.

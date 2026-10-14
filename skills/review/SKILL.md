@@ -21,7 +21,7 @@ Act as a skeptical reviewer. Prioritize real defects over style preferences. Do 
 3. For each finding, provide severity, file/line or symbol, a concrete failure scenario, and a suggested correction.
 4. Verify that each finding is supported by the diff or repository evidence. Label uncertain concerns as questions, not confirmed defects.
 5. Check whether the verification report accurately represents actual command results.
-6. Save findings to `.agentic/tasks/<task-id>/review.md`.
+6. Save findings to `.agentic/tasks/<task-id>/review.md` using `${CLAUDE_PLUGIN_ROOT}/templates/review.md`, and check its structure with `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/validate_artifact.py .agentic/tasks/<task-id>/review.md`.
 
 ## Severity
 - **Blocker:** likely data loss, security compromise, severe outage, or fundamental failure.
@@ -37,3 +37,6 @@ Start with findings ordered by severity. If no findings are identified, say "No 
 - Review only; do not silently modify files. Propose fixes and hand them to `/ae:execute`.
 - Do not block a change for subjective preferences without a concrete benefit.
 - Never approve a production action; review and deployment authorization are separate.
+
+## Shared policies
+Follow `${CLAUDE_PLUGIN_ROOT}/policies/approval-gates.md` and `${CLAUDE_PLUGIN_ROOT}/policies/evidence-policy.md`, including when this skill is invoked directly rather than through `/ae:ae`.

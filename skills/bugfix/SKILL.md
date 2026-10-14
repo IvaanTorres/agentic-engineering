@@ -13,3 +13,6 @@ description: Run an evidence-led bug-fix workflow: investigate, reproduce, debug
 6. Use `/ae:review` to inspect the diff for side effects and whether the test actually protects the behavior.
 7. Use `/ae:document-solution` if the root cause or prevention lesson is likely to recur.
 8. Report root cause, fix, evidence, and remaining uncertainty. Do not deploy without a separate approved release workflow.
+
+## Shared policies
+Follow `${CLAUDE_PLUGIN_ROOT}/policies/approval-gates.md` and `${CLAUDE_PLUGIN_ROOT}/policies/evidence-policy.md`, including when this skill is invoked directly rather than through `/ae:ae`.

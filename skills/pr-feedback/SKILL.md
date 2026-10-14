@@ -14,3 +14,6 @@ description: Triage and resolve review comments or CI feedback on a pull request
 
 ## Output contract
 Comment/CI item; disposition and rationale; files changed; checks/results; response draft; remaining blockers; external actions still requiring approval.
+
+## Shared policies
+Follow `${CLAUDE_PLUGIN_ROOT}/policies/approval-gates.md` and `${CLAUDE_PLUGIN_ROOT}/policies/evidence-policy.md`, including when this skill is invoked directly rather than through `/ae:ae`.

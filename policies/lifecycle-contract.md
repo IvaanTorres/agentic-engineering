@@ -1,6 +1,6 @@
 # Lifecycle contract
 
-`/ae` owns the end-to-end task flow. It also owns continuity of the task-specific expert lens and context capsule as defined in `context-and-persona-continuity.md`. It may consult specialist skills, but it remains responsible for stage selection, state reconciliation, evidence freshness, risk escalation, and the final report.
+`/ae:ae` owns the end-to-end task flow. It also owns continuity of the task-specific expert lens and context capsule as defined in `context-and-persona-continuity.md`. It may consult specialist skills, but it remains responsible for stage selection, state reconciliation, evidence freshness, risk escalation, and the final report.
 
 ## Stages and transition rules
 

@@ -3,7 +3,7 @@
 ## What changed
 
 - Added a lifecycle contract for discovery, specification, design, planning, implementation, verification, review, delivery, and operation. The contract is risk-adaptive rather than forcing every stage on every task.
-- Strengthened `/ae` so it remains accountable for state reconciliation, risk escalation, current-revision evidence, and final completion reporting even when specialist skills are consulted.
+- Strengthened `/ae:ae` so it remains accountable for state reconciliation, risk escalation, current-revision evidence, and final completion reporting even when specialist skills are consulted.
 - Added `scripts/workflow_gate.py`, a deterministic metadata gate for ship-ready task manifests. It requires current-HEAD passing evidence and adds review/security/release evidence requirements based on risk.
 - Added threat-model, test-strategy, and incident/rollback templates.
 - Added evaluation scenarios for stale evidence, conflicting resume state, release authorization, and cross-disciplinary expert routing.

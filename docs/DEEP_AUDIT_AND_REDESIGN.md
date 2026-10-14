@@ -34,12 +34,12 @@ Do not build a custom autonomous controller immediately. First prove the gaps us
 
 ### P1 — Make routing feel like one product, not a command catalog
 
-**Evidence:** The package has many focused skills and a useful `/triage` skill, but users still need to know the vocabulary and sequence of commands.
+**Evidence:** The package has many focused skills and a useful `/ae:triage` skill, but users still need to know the vocabulary and sequence of commands.
 
 **Risk:** Users invoke the wrong path, over-orchestrate small tasks, or skip a safety-critical workflow because they do not know it exists.
 
 **Change:**
-- Make `/triage` the default recommendation when the request is ambiguous; let clear requests route directly.
+- Make `/ae:triage` the default recommendation when the request is ambiguous; let clear requests route directly.
 - Use plain-language categories: **Explain**, **Fix**, **Build**, **Explore**, **Refactor**, **Review**, **Ship**, **Resume**.
 - Show a compact route preview: intent, chosen path, expected changes, verification, and any approval gate.
 - Ask only questions that materially change behavior, scope, or risk.
@@ -49,7 +49,7 @@ Do not build a custom autonomous controller immediately. First prove the gaps us
 
 ### P1 — Establish a canonical task state and resumability contract
 
-**Evidence:** `/resume` reconciles artifacts with Git state, and templates exist, but no single schema defines lifecycle state, evidence freshness, dependencies, or approval scope.
+**Evidence:** `/ae:resume` reconciles artifacts with Git state, and templates exist, but no single schema defines lifecycle state, evidence freshness, dependencies, or approval scope.
 
 **Risk:** Markdown can be stale; a resumed task may reuse old verification after files or the target commit change; parallel work may duplicate or overwrite work.
 
@@ -79,7 +79,7 @@ Do not build a custom autonomous controller immediately. First prove the gaps us
 
 ### P1 — Make verification CI-aware and evidence-fresh
 
-**Evidence:** `/verify` maps acceptance criteria to commands and results, and `/pr-review` calls out current CI status. The package does not yet define a standard CI evidence contract or freshness rules.
+**Evidence:** `/ae:verify` maps acceptance criteria to commands and results, and `/ae:pr-review` calls out current CI status. The package does not yet define a standard CI evidence contract or freshness rules.
 
 **Risk:** A green test run on a stale local checkout is mistaken for proof about the reviewed PR head; flaky failures are misdiagnosed; integration and security checks are omitted.
 

@@ -16,3 +16,6 @@ description: Improve internal structure while preserving externally observable b
 
 ## Output contract
 Structural goal; behavior invariants; baseline; steps; checks/results; compatibility risks; remaining debt; evidence that behavior is preserved.
+
+## Shared policies
+Follow `${CLAUDE_PLUGIN_ROOT}/policies/approval-gates.md` and `${CLAUDE_PLUGIN_ROOT}/policies/evidence-policy.md`, including when this skill is invoked directly rather than through `/ae:ae`.

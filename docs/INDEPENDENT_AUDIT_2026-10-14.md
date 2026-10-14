@@ -11,7 +11,7 @@
 
 ## What is present
 
-- Project-level `CLAUDE.md` plus `/ae` orchestration and specialist skills for triage, investigation, planning, execution, bug fixing/debugging, features, refactoring/simplification, verification/review, PR review/feedback, resume, release/deploy, spikes, learning, and solution capture.
+- Project-level `CLAUDE.md` plus `/ae:ae` orchestration and specialist skills for triage, investigation, planning, execution, bug fixing/debugging, features, refactoring/simplification, verification/review, PR review/feedback, resume, release/deploy, spikes, learning, and solution capture.
 - Lifecycle, evidence, task-state, approval, skill-contract, and tool-boundary policies.
 - Markdown artifact templates; task-manifest, artifact-validation, workflow-gate, and high-impact-command scripts.
 - A Claude Code hook settings example, a verification-auditor agent, 21 reliability-control tests, and JSON eval cases/scorecard.
@@ -21,7 +21,7 @@
 
 - `pytest -q`: **21 passed**.
 - The package's Python test suite executes successfully in this environment. A non-fatal Python startup warning from the environment's spreadsheet warmup appeared after pytest; it was not a test failure.
-- Static review of core lifecycle/policy documents, the task-state and artifact scripts, the command guard, settings example, the main `/ae` skill, and the completeness audit document.
+- Static review of core lifecycle/policy documents, the task-state and artifact scripts, the command guard, settings example, the main `/ae:ae` skill, and the completeness audit document.
 - This did **not** include installing the package into Claude Code, exercising live hooks, testing against real repositories/CI, or performing a comprehensive shell-command bypass campaign.
 
 ## Findings (priority order)
@@ -87,13 +87,13 @@
 
 ### P2 — The skill inventory is broad; routing overlap needs regression tests
 
-**Finding:** there are many useful specialist skills and the `/ae` router describes intent routing, but natural-language descriptions overlap (for example bugfix/debug/investigate; release/deploy; review/pr-review; feature/execute/plan). Documentation acknowledges proportionality, but no automated tests establish routing consistency or that all skills obey shared safety/evidence contracts.
+**Finding:** there are many useful specialist skills and the `/ae:ae` router describes intent routing, but natural-language descriptions overlap (for example bugfix/debug/investigate; release/deploy; review/pr-review; feature/execute/plan). Documentation acknowledges proportionality, but no automated tests establish routing consistency or that all skills obey shared safety/evidence contracts.
 
 **Action:**
 - Define a compact skill contract for every skill: trigger, preconditions, permitted actions, required outputs/evidence, stop conditions, handoff target, and prohibited side effects.
 - Add one routing fixture per skill plus ambiguous/overlapping cases; assert the selected path and safety invariants.
 - Check every `SKILL.md` has valid frontmatter, unique name, a concise description, valid local links, and no contradictory defaults.
-- Consider whether `bugfix` should explicitly say when to route to `/debug` vs `/investigate`; similarly distinguish release preparation from deployment execution.
+- Consider whether `bugfix` should explicitly say when to route to `/ae:debug` vs `/ae:investigate`; similarly distinguish release preparation from deployment execution.
 
 ### P2 — Project-specific engineering quality gates remain intentionally external
 

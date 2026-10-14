@@ -21,7 +21,7 @@ PATTERNS = [
     (r"\baws\s+.*\b(delete|put|update|create|modify)\b", "cloud resource mutation"),
     (r"\bgcloud\s+.*\b(delete|deploy|create|update)\b", "cloud resource mutation"),
     (r"\baz\s+.*\b(delete|deploy|create|update)\b", "cloud resource mutation"),
-    (r"\brm\s+-[^\n]*r[^\n]*f\b|\brm\s+-rf\b", "recursive forced deletion"),
+    (r"\brm\s(?=(?:[^;&|\n]*\s)?(?:-[a-z]*r|--recursive\b))(?=(?:[^;&|\n]*\s)?(?:-[a-z]*f|--force\b))", "recursive forced deletion"),
 ]
 
 def main():

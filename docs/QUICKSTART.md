@@ -4,17 +4,17 @@
 
 | You want to… | Start here | Expected path |
 |---|---|---|
-| Understand code or an error | `/learn` | Read-only explanation grounded in files/tests |
-| Fix a bug | `/bugfix` | Reproduce → root cause → regression test → verify → review |
-| Make a small, clear change | `/triage` or direct request | Narrow edit → targeted check → diff scan |
-| Build a feature | `/feature` | Investigate → proportional plan → implement slices → verify → review |
-| Test feasibility | `/spike` | Time-boxed experiment → recommendation → cleanup status |
-| Restructure without behavior changes | `/refactor` | Baseline → small steps → regression checks |
-| Review a local diff | `/review` | Evidence-based findings; report-only by default |
-| Review a pull request | `/pr-review` | Exact base/head and CI freshness; read-only |
-| Resolve PR feedback | `/pr-feedback` | Disposition each comment → patch → verify; no posting/push by default |
-| Prepare a release/deployment | `/release`, then `/deploy` | Preflight → explicit approval → execute authorized action → health checks |
-| Continue after interruption | `/resume` | Reconcile task artifacts against actual Git state |
+| Understand code or an error | `/ae:retrospect` | Read-only explanation grounded in files/tests |
+| Fix a bug | `/ae:bugfix` | Reproduce → root cause → regression test → verify → review |
+| Make a small, clear change | `/ae:triage` or direct request | Narrow edit → targeted check → diff scan |
+| Build a feature | `/ae:feature` | Investigate → proportional plan → implement slices → verify → review |
+| Test feasibility | `/ae:spike` | Time-boxed experiment → recommendation → cleanup status |
+| Restructure without behavior changes | `/ae:refactor` | Baseline → small steps → regression checks |
+| Review a local diff | `/ae:review` | Evidence-based findings; report-only by default |
+| Review a pull request | `/ae:pr-review` | Exact base/head and CI freshness; read-only |
+| Resolve PR feedback | `/ae:pr-feedback` | Disposition each comment → patch → verify; no posting/push by default |
+| Prepare a release/deployment | `/ae:release`, then `/ae:deploy` | Preflight → explicit approval → execute authorized action → health checks |
+| Continue after interruption | `/ae:resume` | Reconcile task artifacts against actual Git state |
 
 ## What the agent should show you
 

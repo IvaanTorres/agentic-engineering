@@ -1,3 +1,5 @@
+> **Historical:** this is the original toolkit README, kept for reference. Its install steps (copying `.claude/` into each project) don't apply to the plugin; see the repository `README.md` instead.
+
 # Agentic Engineering — Claude Code
 
 A modular, human-governed, evidence-led software lifecycle workflow for Claude Code.
@@ -18,13 +20,13 @@ Copy this repository's `.claude/` directory into your project root. Merge `CLAUD
 cp -R .claude /path/to/your-project/
 ```
 
-Then open Claude Code in the target project. Use `/ae <task>` as the single entry point to route work to the appropriate specialist skill. Specialist skills are also available directly. Skills are available as `/ae`, `/triage`, `/learn`, `/investigate`, `/plan`, `/execute`, `/verify`, `/review`, `/pr-review`, `/pr-feedback`, `/debug`, `/spike`, `/refactor`, `/simplify`, `/resume`, `/deploy`, `/document-solution`, `/feature`, `/bugfix`, and `/release`.
+Then open Claude Code in the target project. Use `/ae:ae <task>` as the single entry point to route work to the appropriate specialist skill. Specialist skills are also available directly. Skills are available as `/ae:ae`, `/ae:triage`, `/ae:retrospect`, `/ae:investigate`, `/ae:plan`, `/ae:execute`, `/ae:verify`, `/ae:review`, `/ae:pr-review`, `/ae:pr-feedback`, `/ae:debug`, `/ae:spike`, `/ae:refactor`, `/ae:simplify`, `/ae:resume`, `/ae:deploy`, `/ae:document-solution`, `/ae:feature`, `/ae:bugfix`, and `/ae:release`.
 
 Review all skill instructions and example settings before use. This starter kit does not grant permissions, configure credentials, or deploy anything by itself.
 
 ## What's included
 
-- `.claude/skills/`: core capabilities and composed workflows, including `/ae` as the single natural-language entry point
+- `.claude/skills/`: core capabilities and composed workflows, including `/ae:ae` as the single natural-language entry point
 - `templates/`: standard artifacts
 - `policies/`: approval and evidence requirements
 - `evals/`: task scenarios for evaluating skill quality
@@ -50,11 +52,11 @@ For the route by intent, expected workflow, and completion contract, see [`docs/
 
 ## Recommended first run
 
-1. Start with `/triage` or use `/learn` for a read-only explanation.
-2. For a small reversible change, keep the path light; for a multi-file feature, use `/feature`; for a bug, use `/bugfix`.
-3. Use `/spike` for time-boxed feasibility work and `/refactor` for behavior-preserving structural work.
-4. Before final review, consider `/simplify`, then run `/verify` and `/review` or `/pr-review` as appropriate.
-5. Use `/resume` after interruption and `/pr-feedback` to resolve review/CI comments.
+1. Start with `/ae:triage` or use `/ae:retrospect` for a read-only explanation.
+2. For a small reversible change, keep the path light; for a multi-file feature, use `/ae:feature`; for a bug, use `/ae:bugfix`.
+3. Use `/ae:spike` for time-boxed feasibility work and `/ae:refactor` for behavior-preserving structural work.
+4. Before final review, consider `/ae:simplify`, then run `/ae:verify` and `/ae:review` or `/ae:pr-review` as appropriate.
+5. Use `/ae:resume` after interruption and `/ae:pr-feedback` to resolve review/CI comments.
 6. Compare results with `evals/cases.json` before adopting the system for important work.
 
 ## Artifact location
@@ -99,7 +101,7 @@ python3 -m py_compile scripts/task_state.py scripts/guard_high_impact.py
 
 ## Context-aware expert orchestration
 
-Use `/ae <task>` as the default entry point. The orchestrator first infers the relevant engineering discipline from the request and repository, then applies that discipline's quality bar while routing into the appropriate workflow. For example, UI work gets frontend concerns (accessibility, states, responsive behavior); backend work gets contract, security, consistency, and failure-mode checks; AI/agent work gets evaluation, grounding, tool-boundary, and cost/latency checks. Cross-disciplinary tasks use a primary lens and only the secondary lenses that materially affect the result.
+Use `/ae:ae <task>` as the default entry point. The orchestrator first infers the relevant engineering discipline from the request and repository, then applies that discipline's quality bar while routing into the appropriate workflow. For example, UI work gets frontend concerns (accessibility, states, responsive behavior); backend work gets contract, security, consistency, and failure-mode checks; AI/agent work gets evaluation, grounding, tool-boundary, and cost/latency checks. Cross-disciplinary tasks use a primary lens and only the secondary lenses that materially affect the result.
 
 The expert lens is a reasoning and verification policy, not a claim of human credentials or a guarantee of correctness. Existing evidence, approval, and safety requirements always remain in force. See `.claude/skills/ae/SKILL.md` for the routing and quality bars.
 
@@ -119,4 +121,4 @@ Run all package tests with `python3 -m unittest discover -s tests -v`. The inclu
 
 ## Context and persona continuity
 
-For non-trivial tasks, `/ae` maintains a task-specific expert lens and context capsule across specialist skills and lifecycle stages. This preserves the objective, repository conventions, decisions, acceptance criteria, verification evidence, open risks, and next action through handoffs and resumes. See `policies/context-and-persona-continuity.md` and `docs/CONTEXTUAL_EXPERT_MODE.md`. This is instruction-level guidance, not a guarantee that an AI will never lose context; durable task artifacts and reconciliation against current repository state are the recovery mechanism.
+For non-trivial tasks, `/ae:ae` maintains a task-specific expert lens and context capsule across specialist skills and lifecycle stages. This preserves the objective, repository conventions, decisions, acceptance criteria, verification evidence, open risks, and next action through handoffs and resumes. See `policies/context-and-persona-continuity.md` and `docs/CONTEXTUAL_EXPERT_MODE.md`. This is instruction-level guidance, not a guarantee that an AI will never lose context; durable task artifacts and reconciliation against current repository state are the recovery mechanism.

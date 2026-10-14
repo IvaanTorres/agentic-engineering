@@ -86,6 +86,16 @@ class HighImpactGuardTests(unittest.TestCase):
         self.assertEqual(code, 0)
         self.assertIn('"permissionDecision": "ask"', output)
 
+    def test_split_recursive_force_flags_request_permission(self):
+        for command in ("rm -r -f ./build", "rm -fr ./build", "rm --recursive --force ./build"):
+            code, output = self.run_guard(command)
+            self.assertIn('"permissionDecision": "ask"', output, command)
+
+    def test_non_recursive_rm_does_not_prompt(self):
+        for command in ("rm -i report.pdf", "rm -f notes.txt", "rm file-rf.txt"):
+            code, output = self.run_guard(command)
+            self.assertEqual(output, "", command)
+
     def test_read_only_command_does_not_prompt(self):
         code, output = self.run_guard("git status --short")
         self.assertEqual(code, 0)

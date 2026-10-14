@@ -3,8 +3,8 @@
 ## Phase 1 — Safe local pilot
 - Copy `.claude/` and merge `CLAUDE.md` into one non-critical repository.
 - Review every skill; adapt commands, test conventions, and artifact paths.
-- Run `/investigate` on one small task.
-- Run `/bugfix` on a reproducible low-risk defect.
+- Run `/ae:investigate` on one small task.
+- Run `/ae:bugfix` on a reproducible low-risk defect.
 - Inspect outputs and note where instructions were ambiguous.
 
 Exit criteria: no destructive/external actions; task artifacts are accurate; tests and claims match actual output.
@@ -77,7 +77,7 @@ Install and validate this package in a non-production pilot repository. First re
 
 ## v5 reliability and lifecycle follow-up
 
-1. Use the lifecycle contract and `/ae` entry point for normal tasks.
+1. Use the lifecycle contract and `/ae:ae` entry point for normal tasks.
 2. Record evidence against the actual current Git HEAD and run `scripts/workflow_gate.py` before marking work ready to ship.
 3. Evaluate every case in `evals/cases.json` against a controlled repository fixture; score hard failures separately from quality dimensions.
 4. Treat production deploys and destructive operations as separate, explicitly authorized operations with platform-level enforcement.

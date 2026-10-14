@@ -8,7 +8,7 @@ Use native Claude Code skills as the interaction layer, standard-library Python 
 
 | Layer | Component | Responsibility | Must not be trusted to do |
 |---|---|---|---|
-| Intent UX | `/triage`, `/feature`, `/bugfix`, `/resume` | Choose proportional workflow and explain next step | Grant permissions |
+| Intent UX | `/ae:triage`, `/ae:feature`, `/ae:bugfix`, `/ae:resume` | Choose proportional workflow and explain next step | Grant permissions |
 | Specialist behavior | existing skills | Investigation, implementation, review, release preparation | Claim evidence they did not observe |
 | Independent review | `.claude/agents/verification-auditor.md` | Audit the actual diff and freshness of evidence | Modify code or approve deployment |
 | Durable state | `.agentic/tasks/<id>/task.json` | Status, scope, criteria, blockers, evidence references | Replace Git or CI as source of truth |

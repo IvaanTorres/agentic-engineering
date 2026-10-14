@@ -80,34 +80,34 @@ These are recurring themes in a small sample, not universal consensus:
 
 | Intent / scale | Recommended path | Required evidence | Approval posture |
 |---|---|---|---|
-| Explain, learn, code tour | `/learn` (read-only) | File/symbol trace; uncertainty called out | No changes by default |
-| Ambiguous request / unknown system | `/triage` → `/investigate` | Facts, hypotheses, unknowns | Ask only material questions |
-| Tiny, clear, reversible change | `/triage` → edit directly or `/execute` → targeted `/verify` → diff scan | Focused check + diff | No deployment/push implied |
-| Bug | `/bugfix` → reproduce → `/debug` → regression test → `/verify` → `/review` | Repro, root cause, regression evidence | Escalate if data/security impact |
-| Medium feature | `/feature` → investigation → proportional plan → bounded execute → simplify → verify → review | Acceptance criteria mapped to checks | Approval for material design/risk choices |
-| Large/multi-phase feature | `/investigate` → `/plan` → task slices → per-slice verify/review → integration verify → simplify/review → release path | Dependency plan, durable artifacts, integration evidence | Checkpoints at design and risky boundaries |
-| Spike / feasibility | `/spike` | Timebox, experiment results, recommendation | No production side effects; cleanup carefully |
-| Refactor | `/refactor` → baseline/characterization tests → small steps → verify/review | Behavior invariants and regression checks | Approval for public behavior/schema changes |
-| Simplification | `/simplify` → verify → review as needed | Evidence behavior preserved | No unrelated cleanup |
-| Review local diff | `/review` | Findings anchored to current diff | Report-only unless fixes requested |
-| Review PR | `/pr-review` | Exact base/head, CI freshness, findings and coverage | Read-only; no approval/merge implied |
-| Resolve review / CI feedback | `/pr-feedback` → verify → review | Each comment disposition and checks | No posting/pushing unless authorized |
-| Interrupted task | `/resume` | Actual git state reconciled with artifacts | Prior approval does not expand scope |
-| Release/deploy | `/release` → `/deploy` | Preflight, CI, health checks, rollback | Fresh explicit approval for exact target/action |
-| Reusable lesson | `/document-solution` or `/learn` follow-up | Verified root cause/decision | Ask before broad policy changes |
+| Explain, learn, code tour | `/ae:retrospect` (read-only) | File/symbol trace; uncertainty called out | No changes by default |
+| Ambiguous request / unknown system | `/ae:triage` → `/ae:investigate` | Facts, hypotheses, unknowns | Ask only material questions |
+| Tiny, clear, reversible change | `/ae:triage` → edit directly or `/ae:execute` → targeted `/ae:verify` → diff scan | Focused check + diff | No deployment/push implied |
+| Bug | `/ae:bugfix` → reproduce → `/ae:debug` → regression test → `/ae:verify` → `/ae:review` | Repro, root cause, regression evidence | Escalate if data/security impact |
+| Medium feature | `/ae:feature` → investigation → proportional plan → bounded execute → simplify → verify → review | Acceptance criteria mapped to checks | Approval for material design/risk choices |
+| Large/multi-phase feature | `/ae:investigate` → `/ae:plan` → task slices → per-slice verify/review → integration verify → simplify/review → release path | Dependency plan, durable artifacts, integration evidence | Checkpoints at design and risky boundaries |
+| Spike / feasibility | `/ae:spike` | Timebox, experiment results, recommendation | No production side effects; cleanup carefully |
+| Refactor | `/ae:refactor` → baseline/characterization tests → small steps → verify/review | Behavior invariants and regression checks | Approval for public behavior/schema changes |
+| Simplification | `/ae:simplify` → verify → review as needed | Evidence behavior preserved | No unrelated cleanup |
+| Review local diff | `/ae:review` | Findings anchored to current diff | Report-only unless fixes requested |
+| Review PR | `/ae:pr-review` | Exact base/head, CI freshness, findings and coverage | Read-only; no approval/merge implied |
+| Resolve review / CI feedback | `/ae:pr-feedback` → verify → review | Each comment disposition and checks | No posting/pushing unless authorized |
+| Interrupted task | `/ae:resume` | Actual git state reconciled with artifacts | Prior approval does not expand scope |
+| Release/deploy | `/ae:release` → `/ae:deploy` | Preflight, CI, health checks, rollback | Fresh explicit approval for exact target/action |
+| Reusable lesson | `/ae:document-solution` or `/ae:retrospect` follow-up | Verified root cause/decision | Ask before broad policy changes |
 
 ## Coverage and gap closure
 
 ### Added in this revision
 
-- `/triage`: routes by intent, uncertainty, risk, and task size; explicitly permits read-only or no-op outcomes.
-- `/spike`: timebox and isolate experiments; prevents prototype code silently becoming production code.
-- `/refactor`: establishes behavior invariants and baseline checks; separates structural change from behavior change.
-- `/simplify`: dedicated complexity-reduction pass before final review.
-- `/learn`: explanation-only path, read-only by default.
-- `/pr-review`: identifies the exact PR/base/head and remains read-only by default.
-- `/pr-feedback`: handles review comments and CI repair without blindly applying or posting responses.
-- `/resume`: reconciles task artifacts with real repository state after interruption.
+- `/ae:triage`: routes by intent, uncertainty, risk, and task size; explicitly permits read-only or no-op outcomes.
+- `/ae:spike`: timebox and isolate experiments; prevents prototype code silently becoming production code.
+- `/ae:refactor`: establishes behavior invariants and baseline checks; separates structural change from behavior change.
+- `/ae:simplify`: dedicated complexity-reduction pass before final review.
+- `/ae:retrospect`: explanation-only path, read-only by default.
+- `/ae:pr-review`: identifies the exact PR/base/head and remains read-only by default.
+- `/ae:pr-feedback`: handles review comments and CI repair without blindly applying or posting responses.
+- `/ae:resume`: reconciles task artifacts with real repository state after interruption.
 
 ### Still needs project-specific validation
 
@@ -122,7 +122,7 @@ These are recurring themes in a small sample, not universal consensus:
 
 ## Architecture recommendations
 
-1. **Layer 1 — Router:** `/triage` chooses a path; don't force every task through every skill.
+1. **Layer 1 — Router:** `/ae:triage` chooses a path; don't force every task through every skill.
 2. **Layer 2 — Specialist skills:** investigation, planning, execution, debugging, simplification, verification, review, learning, PR feedback, delivery.
 3. **Layer 3 — Shared contracts/artifacts:** task ID, objective, scope, risk, acceptance criteria, plan, execution log, verification, review, approvals, release record. Artifacts are evidence aids, not unquestioned truth; reconcile them against git and actual command output.
 4. **Layer 4 — Deterministic controls:** Claude Code permissions, protected branches, CI required checks, environment approvals, secret boundaries, migration controls, and scripts/hooks for mechanical validation.

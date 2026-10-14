@@ -33,3 +33,6 @@ State chosen path, why its weight is proportionate, assumptions, required approv
 For multi-step, interrupted, medium/high-risk, or externally consequential work, initialize a durable task record:
 `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/task_state.py init --id <short-id> --objective "<observable outcome>" --intent <feature|bug|refactor|spike|review|release|other> --risk <low|medium|high|critical>`.
 Use the generated `.agentic/tasks/<id>/task.json` as the canonical task status record. Fill scope and acceptance criteria before implementation. Do not create a manifest for a trivial one-file change unless it improves recovery.
+
+## Shared policies
+Follow `${CLAUDE_PLUGIN_ROOT}/policies/approval-gates.md` and `${CLAUDE_PLUGIN_ROOT}/policies/evidence-policy.md`, including when this skill is invoked directly rather than through `/ae:ae`.

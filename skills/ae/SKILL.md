@@ -13,7 +13,7 @@ The user's request is available as `$ARGUMENTS`. Use `/ae:ae` as the single fron
 1. If `$ARGUMENTS` is empty, ask what the user wants to accomplish and offer supported modes below.
 2. Inspect the current directory, relevant project instructions, `git status --short` when Git is available, and existing `.agentic/tasks/` state. Preserve unrelated changes.
 3. Choose the smallest suitable specialist workflow. Read that specialist's `SKILL.md` fully before following it.
-4. For nontrivial tasks, create or update a durable record under `.agentic/tasks/<task-id>/` using `${CLAUDE_PLUGIN_ROOT}/scripts/task_state.py` if available. Check the script's actual help/CLI syntax first; never invent flags or overwrite another task's record.
+4. For nontrivial tasks, create or update a durable record under `.agentic/tasks/<task-id>/` using `${CLAUDE_PLUGIN_ROOT}/scripts/task_state.py` if available. Check the script's actual help/CLI syntax first; never invent flags or overwrite another task's record. The manifest format is in `${CLAUDE_PLUGIN_ROOT}/policies/task-state-and-evidence.md`. Before creating `.agentic/` in a repository, run `git check-ignore -q .agentic`; if it is not ignored, tell the user and suggest adding it to `.gitignore` rather than editing that file without asking.
 5. Work only within the requested scope. Run relevant tests/checks and record exact commands and outcomes. Never claim a check ran or passed unless it actually did.
 6. Follow `${CLAUDE_PLUGIN_ROOT}/policies/agent-safety-and-tool-boundaries.md`, `${CLAUDE_PLUGIN_ROOT}/policies/approval-gates.md`, and the selected skill. Ask before deployment, publishing, destructive data changes, secret/permission changes, irreversible operations, or shared Git history rewrites. A prompt or guard script is not a complete security boundary.
 7. Finish with outcome, changed files, verification evidence, approvals requested/obtained, unresolved risks, and the next recommended action.
@@ -63,7 +63,7 @@ Never automatically deploy, publish, run destructive production data operations,
 - Review comments or CI feedback: `pr-feedback`.
 - Continue interrupted work: `resume`.
 - Release preparation: `release`.
-- Deployment/production operation: `deploy`, but stop at approval gates and never deploy without explicit user approval.
+- Deployment/production operation: `deploy`. Only the user can start it, so prepare what you can and ask them to run `/ae:deploy <target>`; never deploy without explicit user approval.
 - Durable solution/runbook: `document-solution`.
 - Issue prioritization/initial assessment: `triage`.
 

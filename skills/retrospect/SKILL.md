@@ -14,3 +14,6 @@ description: Explain unfamiliar code, architecture, errors, libraries, or engine
 
 ## Output contract
 Short answer; evidence/trace; mental model; caveats/unknowns; optional next learning step. No code changes by default.
+
+## Shared policies
+Follow `${CLAUDE_PLUGIN_ROOT}/policies/approval-gates.md` and `${CLAUDE_PLUGIN_ROOT}/policies/evidence-policy.md`, including when this skill is invoked directly rather than through `/ae:ae`.

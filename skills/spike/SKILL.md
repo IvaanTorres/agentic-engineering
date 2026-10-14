@@ -16,3 +16,6 @@ description: Time-box a technical investigation or prototype to answer a specifi
 
 ## Output contract
 Question; timebox; setup; experiments; results; tradeoffs; recommendation; limitations; cleanup status; implementation follow-up. Mark code as experimental and unverified unless it passes the normal verification workflow.
+
+## Shared policies
+Follow `${CLAUDE_PLUGIN_ROOT}/policies/approval-gates.md` and `${CLAUDE_PLUGIN_ROOT}/policies/evidence-policy.md`, including when this skill is invoked directly rather than through `/ae:ae`.

@@ -20,3 +20,6 @@ Report reproduction status, evidence, hypotheses tested, root cause or remaining
 
 ## Guardrails
 Do not use production data or destructive experiments without explicit approval. Redact secrets and personal data from logs.
+
+## Shared policies
+Follow `${CLAUDE_PLUGIN_ROOT}/policies/approval-gates.md` and `${CLAUDE_PLUGIN_ROOT}/policies/evidence-policy.md`, including when this skill is invoked directly rather than through `/ae:ae`.
