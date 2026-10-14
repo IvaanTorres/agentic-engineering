@@ -16,14 +16,14 @@ How `/ae:ae` runs a task end to end. Read this for non-trivial work; trivial and
 | Risk | Path |
 |---|---|
 | Low, small, reversible | discover → implement → focused verify → diff review |
-| Medium | specify → plan as needed → implement with tests → verify → review (with `ae:reviewer` when you wrote the change) |
+| Medium | specify → plan (checked by `ae:reviewer`) → implement with tests → verify → review (with `ae:reviewer` when you wrote the change) |
 | High | add design and threat analysis, rollback plan, `ae:reviewer` and `ae:verification-auditor` |
 | Critical / production / destructive | stop at a proposal or preflight until the user approves the exact action and target |
 
 State why you skip an expected stage on medium-or-higher risk. Stop and report after two failed verify → fix rounds instead of looping.
 
 ## Working frame
-For non-trivial work, keep one frame across every skill hand-off: **objective**, **primary lens** (below) and only the secondary lenses that matter, **repository facts and conventions**, **risk and quality bar**, **acceptance criteria**, **open assumptions**, **decisions so far**, **approval boundaries**. Specialist skills add method; they don't reset the frame. The user's latest instruction updates the objective. Change the lens only when evidence changes the problem, and say why. Keep facts, inferences and hypotheses distinct; never fill gaps with invented repository details.
+For non-trivial work, keep one frame across every skill hand-off: **objective**, **primary lens** (below) and only the secondary lenses that matter, **repository facts and conventions**, **risk and quality bar**, **acceptance criteria**, **open assumptions**, **decisions so far**, **approval boundaries**. Specialist skills add method; they don't reset the frame. Pass the primary lens and its checklist to any subagent you delegate to, such as `ae:reviewer`. The user's latest instruction updates the objective. Change the lens only when evidence changes the problem, and say why. Keep facts, inferences and hypotheses distinct; never fill gaps with invented repository details.
 
 ## Expert lenses
 Pick the primary lens from the repository and the change, not from keywords. It changes what you inspect and test; it never bypasses the workflow or claims human credentials.

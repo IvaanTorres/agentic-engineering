@@ -49,11 +49,12 @@ Everything is namespaced under `ae:`. Skills whose names don't clash with a buil
 | `/ae:release`, `/ae:deploy` | Release preparation; deploy stops at approval gates (user-invoked only) |
 | `/ae:record` | Record a reusable fix or decision |
 
-Two read-only subagents back up the skills: `ae:reviewer` reviews a diff with a fresh context (used by `review` and `ship` for medium-or-higher risk), and `ae:verification-auditor` gives a PASS/FAIL/BLOCKED verdict on whether a change is backed by fresh evidence.
+Two read-only subagents back up the skills: `ae:reviewer` gives a fresh-context second opinion as the task's expert lens (for example a frontend specialist on a UI change). It checks plans before implementation (`plan`, medium risk and up) and diffs after it (`review`, `ship`, `pr-review`). And `ae:verification-auditor` gives a PASS/FAIL/BLOCKED verdict on whether a change is backed by fresh evidence.
 
 ### How it works with a sprint team
 
 - **Tickets first:** give `/ae` a ticket ID or URL and it reads the acceptance criteria before doing anything, flags unclear ones, and keeps out-of-scope findings as follow-ups (`policies/team-workflow.md`).
+- **Expert lens everywhere:** each task gets a primary lens (frontend, backend, data, security, ...) from the code it touches, whether you start with `/ae` or call a skill directly, and the lens is passed to the reviewer subagent.
 - **Tests by default:** behavior changes and bug fixes get tests (a failing regression test first for bugs); skipping one needs a stated reason (`policies/testing.md`).
 - **Challenge questions:** `/ae:pr-review` and `/ae:ship` ask you 3–5 questions about the specific change (edge cases, side effects, decisions, tests) and wait for your answers, so you can defend what you approve or deliver (`policies/challenge.md`). Say `quick` to skip.
 - **Reactive work:** hotfix mode in `/ae:fix`, review feedback and CI failures in `/ae:pr-fix`.
@@ -98,7 +99,7 @@ claude plugin validate .                # plugin + marketplace manifests
 claude plugin eval . --scaffold --ablation none --allow-tools Edit Write Agent "Bash(python3:*)" "Bash(git status:*)" "Bash(git diff:*)" "Bash(git log:*)" "Bash(git show:*)" "Bash(git branch:*)" "Bash(git check-ignore:*)" "Bash(git stash:*)"
 ```
 
-The eval suite runs each case in a throwaway sandbox repo (a tiny Python shop package) and checks the behaviors that matter most: `/ae` routes a bug ticket to `fix` and writes a failing test first, `ship` challenges you instead of committing, `explain` stays read-only, an unclear ticket gets questions instead of code, and `review` finds a caller broken outside the diff. Each case runs once by default; pass `--runs 3` for a steadier score. Drop `--ablation none` to compare against Claude without the plugin. Results go to `evals/results/` (git-ignored).
+The eval suite runs each case in a throwaway sandbox repo (a tiny Python shop package) and checks the behaviors that matter most: `/ae` routes a bug ticket to `fix` and writes a failing test first, `ship` challenges you instead of committing, `explain` stays read-only, an unclear ticket gets questions instead of code, `review` finds a caller broken outside the diff, and `plan` gets the reviewer's critique before implementation. Each case runs once by default; pass `--runs 3` for a steadier score. Drop `--ablation none` to compare against Claude without the plugin. Results go to `evals/results/` (git-ignored).
 
 When adding or changing a skill, follow `policies/skill-contract.md`.
 
