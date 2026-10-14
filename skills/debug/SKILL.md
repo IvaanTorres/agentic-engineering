@@ -9,7 +9,7 @@ description: Diagnose and fix a reproducible or suspected software defect using 
 1. Read the investigation, failing tests, logs, diff, and exact reproduction steps.
 2. Reproduce the failure if safe. Capture the command, input, environment assumptions, and observed result.
 3. Form a small number of ranked hypotheses and design the cheapest experiment that distinguishes them.
-4. Change one causal variable at a time. Prefer a regression test that demonstrates the defect.
+4. Change one causal variable at a time. Capture the defect in a regression test that fails before the fix (`${CLAUDE_PLUGIN_ROOT}/policies/testing.md`).
 5. Find the root cause rather than masking a symptom. Do not delete tests, loosen assertions, swallow exceptions, or disable checks merely to get a pass.
 6. Apply the smallest safe fix and run the regression test plus relevant neighboring checks.
 7. If the issue is not reproducible, document what was tried and what evidence is missing. Do not fabricate certainty.

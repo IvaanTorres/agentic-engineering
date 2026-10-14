@@ -14,4 +14,6 @@
 ## Security, privacy, data and compatibility risks
 ## Rollback / mitigation
 ## Human approval gates
+## Delivery slices (PRs)
 ## Out of scope
+## Follow-ups

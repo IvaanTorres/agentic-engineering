@@ -13,8 +13,8 @@
 | Test feasibility | `/ae:spike` | Time-boxed experiment → recommendation → cleanup status |
 | Restructure or simplify without behavior changes | `/ae:refactor` | Baseline → small steps → regression checks |
 | Review a local diff | `/ae:review` | Evidence-based findings; report-only by default |
-| Review a pull request | `/ae:pr-review` | Exact base/head and CI freshness; read-only |
-| Commit and open a PR | `/ae:ship` | Clean commit → PR description from decisions and evidence → approval → push |
+| Review a pull request | `/ae:pr-review <PR>` | Ticket criteria → beyond-the-diff check → tests → questions for you → findings and draft comments; read-only |
+| Understand and deliver your change | `/ae:ship` | Self-review → walkthrough and questions for you → clean commit → PR description → approval → push |
 | Resolve PR feedback | `/ae:pr-fix` | Disposition each comment → patch → verify; no posting/push by default |
 | Prepare a release/deployment | `/ae:release`, then `/ae:deploy` | Preflight → explicit approval → execute authorized action → health checks |
 | Continue after interruption | `/ae:resume` | Reconcile task artifacts against actual Git state |

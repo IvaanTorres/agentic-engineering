@@ -3,7 +3,7 @@ name: implement
 description: Implement a bounded, approved coding task from a plan or clear request. Use when requirements are sufficiently clear and implementation is authorized.
 ---
 
-# Execute
+# Implement
 
 ## Preconditions
 - Understand the task and its acceptance criteria.
@@ -14,8 +14,8 @@ description: Implement a bounded, approved coding task from a plan or clear requ
 ## Procedure
 1. Select the smallest task that can be implemented and verified independently.
 2. Follow existing architecture, style, and dependency conventions.
-3. For behavior changes, add or update a test where practical. For bug fixes, prefer a regression test that fails before the fix.
-4. Make small, reviewable changes. Do not mix unrelated cleanup into the task.
+3. Write tests by default, following `${CLAUDE_PLUGIN_ROOT}/policies/testing.md`: for behavior changes and bug fixes they are required (a regression test that fails before the fix), and skipping one needs a reason recorded in the execution log.
+4. Make small, reviewable changes. Do not mix unrelated cleanup into the task; note it as a follow-up instead.
 5. Run targeted tests/checks after each meaningful change; record exact commands and outcomes.
 6. If a check fails, determine whether the failure is caused by the change, pre-existing, or environmental. Do not suppress it without evidence.
 7. Update `.agentic/tasks/<task-id>/execution-log.md` (template: `${CLAUDE_PLUGIN_ROOT}/templates/execution-log.md`) and the plan status. Add every material decision to its Decisions table as you make it, with the alternatives and the reason. Do not mark unverified tasks complete.

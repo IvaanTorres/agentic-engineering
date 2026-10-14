@@ -3,7 +3,7 @@ name: record
 description: Record a verified engineering solution, architectural decision, or recurring failure pattern so future work can reuse it. Use after a nontrivial fix, surprising discovery, or repeated project-specific issue.
 ---
 
-# Document Solution
+# Record
 
 ## Procedure
 1. Confirm the lesson is supported by evidence and likely to be useful again.

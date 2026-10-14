@@ -6,7 +6,7 @@ description: Prepare a release candidate, verify release readiness, and coordina
 # Release Workflow
 
 1. Confirm requested version, target environment, release scope, and deployment owner.
-2. Review merged changes, release notes, CI, tests, build artifact, migrations, feature flags, compatibility, and rollback.
+2. Review merged changes since the last release (PRs and their tickets), draft release notes from them, and check CI, tests, build artifact, migrations, feature flags, compatibility, and rollback.
 3. Use `/ae:verify` and `/ae:review` against the release candidate.
 4. Produce a release checklist and unresolved-risk list. Any blocker or required check failure blocks release.
 5. Stop and hand off. Only the user can start `/ae:deploy`, so give them the checklist and ask them to run `/ae:deploy <target>` for preflight and approval. Do not deploy from this skill or bypass the deploy approval gate.

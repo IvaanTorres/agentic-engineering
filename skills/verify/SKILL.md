@@ -10,8 +10,8 @@ description: Independently verify that a code change meets acceptance criteria a
 2. Inspect project scripts and documentation to identify the correct test, lint, typecheck, build, and integration commands. Do not guess command names when the repository can tell you.
 3. Run the narrowest meaningful checks first, then broader checks proportionate to risk.
 4. Inspect exit codes and relevant output. A command being started is not evidence of passing.
-5. Map every acceptance criterion to evidence: test name/output, build result, manual observation, or an explicit gap.
-6. Check for untested paths, regressions, accidental file changes, flaky/environment-dependent results, and missing migrations.
+5. Map every acceptance criterion (from the ticket when there is one) to evidence: test name/output, build result, manual observation, or an explicit gap.
+6. Check test adequacy against `${CLAUDE_PLUGIN_ROOT}/policies/testing.md`: required tests present, tests that would fail without the change, edge cases and failure paths covered. Also check for regressions, accidental file changes, flaky or environment-dependent results, missing migrations, and the team's definition of done (`${CLAUDE_PLUGIN_ROOT}/policies/team-workflow.md`).
 7. If checks fail, report the failure and route to `/ae:debug` or `/ae:implement`. Do not approve completion while required checks are failing or unknown.
 8. Write `.agentic/tasks/<task-id>/verification.md` using `${CLAUDE_PLUGIN_ROOT}/templates/verification.md`, then check its structure with `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/validate_artifact.py .agentic/tasks/<task-id>/verification.md`.
 9. For medium-or-higher risk tasks, also get an independent verdict from the `ae:verification-auditor` subagent and record it. It supplements your own checks; it does not replace them.

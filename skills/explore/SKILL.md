@@ -3,14 +3,14 @@ name: explore
 description: Investigate a bug, unfamiliar codebase, feature request, or technical question before implementation. Use when the cause, relevant architecture, constraints, or safest approach is not yet clear.
 ---
 
-# Investigate
+# Explore
 
 ## Goal
 Produce an evidence-based picture of the problem and the relevant parts of the repository. Do not implement changes unless the user explicitly asks for investigation and implementation together and the workflow has reached execution.
 
 ## Procedure
 1. Read project instructions (`CLAUDE.md`, package scripts, contribution docs) and inspect `git status`. Do not overwrite or discard existing changes.
-2. Translate the request into the observed behavior, desired behavior, scope, and unknowns.
+2. If there is a ticket, read it and its acceptance criteria (`${CLAUDE_PLUGIN_ROOT}/policies/team-workflow.md`). Translate the request into the observed behavior, desired behavior, scope, and unknowns, and list acceptance criteria that are missing or unclear.
 3. Search the smallest relevant surface first: entry points, call sites, tests, configuration, and recent relevant history if useful.
 4. Run safe, targeted read-only commands. Do not expose secrets or dump environment variables.
 5. Separate findings into:
@@ -18,7 +18,7 @@ Produce an evidence-based picture of the problem and the relevant parts of the r
    - **Hypotheses** with confidence and evidence.
    - **Unknowns** requiring clarification or further experiments.
 6. Identify likely affected components, compatibility constraints, security/privacy concerns, and regression risks.
-7. Recommend the smallest useful next step. Ask a focused question only if an unresolved decision materially changes the solution.
+7. Note problems found outside the scope as follow-ups instead of folding them in. Recommend the smallest useful next step. Ask a focused question only if an unresolved decision materially changes the solution.
 8. Save findings to `.agentic/tasks/<task-id>/investigation.md` using `${CLAUDE_PLUGIN_ROOT}/templates/investigation.md` when durable task tracking is useful, and check it with `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/validate_artifact.py .agentic/tasks/<task-id>/investigation.md`.
 
 ## Output contract

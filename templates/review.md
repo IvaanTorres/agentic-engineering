@@ -8,9 +8,13 @@ For each finding:
 - Evidence:
 - Suggested correction:
 
+## Acceptance criteria coverage
+## Beyond the diff (callers, contracts, side effects)
+## Test adequacy
 ## Checks performed
 ## Areas not reviewed
 ## Questions / uncertain concerns
+## Draft comments (not posted)
 ## Verdict
 - [ ] No blocking findings identified
 - [ ] Changes requested

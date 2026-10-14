@@ -25,6 +25,7 @@ Clarify the question and desired depth only when it is genuinely ambiguous.
 3. Map the diff by layer (for example backend, frontend, config, tests, docs) and find the entry points.
 4. Tell the story: the initial approach, then what changed in later commits and why. Fix, refactor, and review-driven commits usually reveal decisions and problems that were hit; call those out.
 5. Trace one concrete request or user flow end to end through the new code.
+6. Offer to challenge the user on the change (`${CLAUDE_PLUGIN_ROOT}/policies/challenge.md`) so they can check their understanding; do it by default when they are about to review, approve, or take over the change.
 
 ## Agent task
 1. Read the task artifacts (`task.json`, `plan.md`, `execution-log.md`, `verification.md`, `review.md`) and the actual diff. Treat artifacts as claims; check them against the repository and Git state.

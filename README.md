@@ -42,13 +42,21 @@ Everything is namespaced under `ae:`. Skills whose names don't clash with a buil
 | `/ae:feature`, `/ae:fix` | End-to-end workflows, ending in `/ae:ship` |
 | `/ae:debug`, `/ae:spike`, `/ae:refactor` | Focused work; `refactor` includes a simplify pass |
 | `/ae:verify`, `/ae:review` | Evidence and review of local changes |
-| `/ae:ship` | Commit, write the PR description from decisions and evidence, open the PR (asks before pushing) |
-| `/ae:pr-review`, `/ae:pr-fix` | Review a PR; work through review comments or CI feedback |
+| `/ae:ship` | Self-review your change against the ticket, walk you through it and challenge you on it, then commit and draft the PR (asks before pushing) |
+| `/ae:pr-review` | Review a PR against its ticket and beyond the diff, challenge you with questions, draft comments without posting (`quick` skips the questions) |
+| `/ae:pr-fix` | Work through review comments or CI failures, explaining each reviewer's concern |
 | `/ae:resume` | Continue interrupted work |
 | `/ae:release`, `/ae:deploy` | Release preparation; deploy stops at approval gates (user-invoked only) |
 | `/ae:record` | Record a reusable fix or decision |
 
 The `ae:verification-auditor` subagent gives an independent, read-only PASS/FAIL/BLOCKED verdict on whether a change is backed by fresh evidence.
+
+### How it works with a sprint team
+
+- **Tickets first:** give `/ae` a ticket ID or URL and it reads the acceptance criteria before doing anything, flags unclear ones, and keeps out-of-scope findings as follow-ups (`policies/team-workflow.md`).
+- **Tests by default:** behavior changes and bug fixes get tests (a failing regression test first for bugs); skipping one needs a stated reason (`policies/testing.md`).
+- **Challenge questions:** `/ae:pr-review` and `/ae:ship` ask you 3–5 questions about the specific change (edge cases, side effects, decisions, tests) and wait for your answers, so you can defend what you approve or deliver (`policies/challenge.md`). Say `quick` to skip.
+- **Reactive work:** hotfix mode in `/ae:fix`, review feedback and CI failures in `/ae:pr-fix`.
 
 ### Learning from the work
 
@@ -62,7 +70,7 @@ skills/           19 skills (ae entry point + 18 specialists)
 agents/           verification-auditor subagent
 hooks/hooks.json  PreToolUse guard for high-impact Bash commands
 scripts/          task_state.py, workflow_gate.py, validate_artifact.py, guard_high_impact.py
-policies/         approval gates, evidence, knowledge transfer, expert lenses, lifecycle, safety and continuity
+policies/         approval gates, evidence, testing, challenge questions, team/sprint workflow, knowledge transfer, expert lenses, lifecycle, safety
 templates/        task artifacts, plus CLAUDE.working-agreement.md to merge into a project's CLAUDE.md
 docs/             quickstart and /ae usage; docs/history/ holds the original toolkit's design docs and audits
 evals/            evaluation cases and scorecard

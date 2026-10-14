@@ -11,7 +11,7 @@ The user's request is available as `$ARGUMENTS`. `/ae:ae` (or `/ae`) is the fron
 
 ## Operating contract
 1. If `$ARGUMENTS` is empty, ask what the user wants to accomplish and offer the routes below.
-2. Inspect the current directory, project instructions, `git status --short` when Git is available, and existing `.agentic/tasks/` state. Preserve unrelated changes.
+2. Inspect the current directory, project instructions, `git status --short` when Git is available, and existing `.agentic/tasks/` state. Preserve unrelated changes. If the request names a ticket, read it first and work to its acceptance criteria (`${CLAUDE_PLUGIN_ROOT}/policies/team-workflow.md`).
 3. Classify the request (below), choose the lightest adequate route, and invoke that specialist skill (`ae:<name>`) before following it. Always use this plugin's `ae:` skills. Never substitute a built-in command, an account skill, or another plugin's skill with a similar name (for example a generic `review`, `plan`, `debug` or `simplify`). Ask only questions whose answers change the solution or risk; otherwise state low-risk assumptions.
 4. For non-trivial work, read `${CLAUDE_PLUGIN_ROOT}/policies/expert-lenses.md` and `${CLAUDE_PLUGIN_ROOT}/policies/context-and-persona-continuity.md`, establish the working frame, and keep it across skill hand-offs. Specialist skills inherit it instead of starting from a blank context.
 5. Work only within the requested scope. Run relevant checks and record exact commands and outcomes. Never claim a check ran or passed unless it did.
@@ -32,7 +32,9 @@ The user's request is available as `$ARGUMENTS`. `/ae:ae` (or `/ae`) is the fron
 | Behavior-preserving restructuring or simplification | `ae:refactor` |
 | Check evidence for a change | `ae:verify` |
 | Review a local diff | `ae:review`; a pull request: `ae:pr-review` |
-| Commit, write the PR description, open the PR | `ae:ship` |
+| Understand my own change, commit it, write the PR, open it | `ae:ship` |
+| A ticket ID or URL | Read it, then route by what it asks: `ae:feature`, `ae:fix`, `ae:spike`, or `ae:explore` when it is unclear |
+| Urgent production bug (hotfix) | `ae:fix` in hotfix mode (`${CLAUDE_PLUGIN_ROOT}/policies/team-workflow.md`) |
 | PR review comments or CI feedback | `ae:pr-fix` |
 | Continue interrupted work | `ae:resume` |
 | Release preparation | `ae:release` |
@@ -51,7 +53,7 @@ For multi-step, interrupted, medium/high-risk, or externally consequential work,
 
 ## Lifecycle contract
 Follow `${CLAUDE_PLUGIN_ROOT}/policies/lifecycle-contract.md`. `/ae:ae` stays accountable for the task when it hands off to specialist skills; skills are workflow guidance, not authorities that can skip safety or evidence requirements.
-- Before reporting completion, inspect the final diff and run applicable verification against the current Git HEAD.
+- Before reporting completion, inspect the final diff and run applicable verification against the current Git HEAD. Tests follow `${CLAUDE_PLUGIN_ROOT}/policies/testing.md`: required by default for behavior changes, skipped only with a stated reason.
 - Evidence scales with risk: medium or higher needs review evidence; high/critical needs security/threat evidence; release/critical needs release, rollback, and preflight evidence.
 - With a valid task manifest, run `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/workflow_gate.py .agentic/tasks/<task-id>/task.json` before calling the task ready to ship. It checks evidence metadata only, not authenticity, test quality, or deployment authorization. If it fails, report the blockers instead of bypassing them.
 - If requirements change materially, update scope and criteria and revisit risk. On resume, reconcile real files and Git state before trusting earlier notes.

@@ -5,10 +5,10 @@ description: Run the standard end-to-end workflow for a nontrivial feature: inve
 
 # Feature Workflow
 
-1. Classify risk and scope. Inspect repository instructions and existing changes.
+1. Read the ticket and its acceptance criteria if there is one (`${CLAUDE_PLUGIN_ROOT}/policies/team-workflow.md`). Classify risk and scope. Inspect repository instructions and existing changes.
 2. Use `/ae:explore` and save the findings.
-3. Use `/ae:plan`; ensure acceptance criteria and test strategy are concrete.
-4. Present material assumptions and decisions to the user. Get clarification before implementation if needed.
+3. Use `/ae:plan`; ensure acceptance criteria, PR slicing, and the test strategy (`${CLAUDE_PLUGIN_ROOT}/policies/testing.md`) are concrete.
+4. Present material assumptions and decisions to the user, with the options and their trade-offs for anything they should choose. Get clarification before implementation if needed.
 5. Use `/ae:implement` on bounded tasks, logging decisions in the execution log. Parallelize only independent tasks with clear file ownership and integration points.
 6. Do a simplification pass over the diff (see the simplify pass in `/ae:refactor`) when the implementation grew more complex than needed.
 7. Use `/ae:verify`; failures route to `/ae:debug` or `/ae:implement`, then verify again.

@@ -10,10 +10,10 @@ Create a plan that another execution pass can follow without re-discovering the 
 
 ## Procedure
 1. Read the request, project instructions, relevant investigation, current git status, and existing plans.
-2. State the problem, intended outcome, explicit non-goals, assumptions, and acceptance criteria.
+2. State the problem, intended outcome, explicit non-goals, assumptions, and acceptance criteria, taken from the ticket when there is one (`${CLAUDE_PLUGIN_ROOT}/policies/team-workflow.md`).
 3. Identify affected files/components, interfaces, data changes, dependencies, and migration/compatibility needs.
-4. Break work into small, ordered tasks. Mark dependencies and identify tasks that are genuinely independent.
-5. For each task specify: intended change, files/area, tests or checks, and completion evidence.
+4. Break work into small, ordered tasks. Mark dependencies and identify tasks that are genuinely independent. If the change is too big for one reviewable PR, group tasks into PR-sized slices that each ship on their own, behind a feature flag when behavior is incomplete.
+5. For each task specify: intended change, files/area, the tests it needs per `${CLAUDE_PLUGIN_ROOT}/policies/testing.md` (or why none), and completion evidence.
 6. Include failure modes, security/privacy implications, observability, and rollback considerations where relevant.
 7. Prefer existing libraries and project patterns. Explain any new dependency or architectural abstraction.
 8. Identify decisions that need user input. Never assume approval for a risky action.
