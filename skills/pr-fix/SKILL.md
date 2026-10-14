@@ -1,5 +1,5 @@
 ---
-name: pr-feedback
+name: pr-fix
 description: Triage and resolve review comments or CI feedback on a pull request. Use after a reviewer requests changes or CI fails.
 ---
 

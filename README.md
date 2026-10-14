@@ -32,27 +32,27 @@ The plugin has no `version` field, so installs follow the latest commit.
 
 ## Usage
 
-Everything is namespaced under `ae:`. Skills whose names don't clash with a built-in command also work without the prefix (`/ae`, `/retrospect`, `/bugfix`), but `/review`, `/plan`, `/resume` and similar built-in names need the `ae:` prefix.
+Everything is namespaced under `ae:`. Skills whose names don't clash with a built-in command also work without the prefix (`/ae`, `/explain`, `/fix`), but `/review`, `/plan`, `/resume` and similar built-in names need the `ae:` prefix.
 
 | Command | Use it for |
 |---|---|
 | `/ae <request>` | Entry point: classifies the request and routes to the lightest suitable skill |
-| `/ae:retrospect` | Learn: explain code or a concept, walk through a PR/branch as a story of decisions, or review what an agent did in a task |
-| `/ae:investigate`, `/ae:plan`, `/ae:execute` | Understand, plan and implement a change |
-| `/ae:feature`, `/ae:bugfix` | End-to-end workflows, ending in `/ae:ship` |
+| `/ae:explain` | Learn: explain code or a concept, walk through a PR/branch as a story of decisions, or review what an agent did in a task |
+| `/ae:explore`, `/ae:plan`, `/ae:implement` | Understand, plan and implement a change |
+| `/ae:feature`, `/ae:fix` | End-to-end workflows, ending in `/ae:ship` |
 | `/ae:debug`, `/ae:spike`, `/ae:refactor` | Focused work; `refactor` includes a simplify pass |
 | `/ae:verify`, `/ae:review` | Evidence and review of local changes |
 | `/ae:ship` | Commit, write the PR description from decisions and evidence, open the PR (asks before pushing) |
-| `/ae:pr-review`, `/ae:pr-feedback` | Review a PR; work through review comments or CI feedback |
+| `/ae:pr-review`, `/ae:pr-fix` | Review a PR; work through review comments or CI feedback |
 | `/ae:resume` | Continue interrupted work |
 | `/ae:release`, `/ae:deploy` | Release preparation; deploy stops at approval gates (user-invoked only) |
-| `/ae:document-solution` | Record a reusable fix or decision |
+| `/ae:record` | Record a reusable fix or decision |
 
 The `ae:verification-auditor` subagent gives an independent, read-only PASS/FAIL/BLOCKED verdict on whether a change is backed by fresh evidence.
 
 ### Learning from the work
 
-Every skill that changes, reviews or explains something non-trivial ends with a **debrief** (`policies/knowledge-transfer.md`): the decisions and the alternatives rejected, a reading order for the diff, assumptions and gaps, what to check yourself, and the key concepts. `execute` records decisions as it goes in the execution log's decisions table, so the debrief, `retrospect` and the PR description work from a real record instead of reconstructing reasons afterwards.
+Every skill that changes, reviews or explains something non-trivial ends with a **debrief** (`policies/knowledge-transfer.md`): the decisions and the alternatives rejected, a reading order for the diff, assumptions and gaps, what to check yourself, and the key concepts. `implement` records decisions as it goes in the execution log's decisions table, so the debrief, `explain` and the PR description work from a real record instead of reconstructing reasons afterwards.
 
 ## What's in the repo
 
@@ -86,13 +86,13 @@ When adding or changing a skill, follow `policies/skill-contract.md`.
 
 ## Differences from the account-upload kit
 
-- The read-only explanation skill (the toolkit's `learn`) is named `retrospect`, and `/ae:ae` routes read-only questions to it. In the upload kit the name and the router disagreed, so routing failed.
+- Skills have short names: `explain` (the toolkit's `learn`, `retrospect` in the upload kit), `explore` (was `investigate`), `implement` (`execute`), `fix` (`bugfix`), `pr-fix` (`pr-feedback`) and `record` (`document-solution`). In the upload kit the explanation skill's name and the router disagreed, so routing failed.
 - Skills point to policies, scripts and templates under `${CLAUDE_PLUGIN_ROOT}` instead of assuming they were copied into each repo.
 - Cross-references between skills use the `/ae:<name>` form.
 - `/ae:release` and `/ae:ae` hand deployment back to you, because only you can start `/ae:deploy`.
 - Every template, `validate_artifact.py`, the `verification-auditor` subagent and every policy is now used by at least one skill. Each specialist links the approval-gate and evidence policies, so they still apply when you call it directly.
 - The guard hook no longer prompts for harmless commands like `rm -i report.pdf`.
 - `triage` is folded into `/ae:ae` and `simplify` into `/ae:refactor`; the expert-role descriptions moved to `policies/expert-lenses.md` so `/ae:ae` loads less on every call.
-- Added `/ae:ship`, the knowledge-transfer debrief, the execution-log decisions table, and the PR/branch and agent-task modes of `/ae:retrospect`.
+- Added `/ae:ship`, the knowledge-transfer debrief, the execution-log decisions table, and the PR/branch and agent-task modes of `/ae:explain`.
 
 If you also uploaded the skills to claude.ai (Customize → Skills), remove those copies after installing the plugin, or you'll have two of every skill.

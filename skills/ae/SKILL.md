@@ -21,26 +21,26 @@ The user's request is available as `$ARGUMENTS`. `/ae:ae` (or `/ae`) is the fron
 ## Classify and route
 | Request | Route |
 |---|---|
-| Understand code, a concept, a PR/branch, or what an agent did | `retrospect` (read-only) |
+| Understand code, a concept, a PR/branch, or what an agent did | `explain` (read-only) |
 | Tiny, clear, reversible change | Do it directly: inspect status, edit, targeted check, diff review, debrief |
-| Small bounded implementation with clear requirements | `execute`, then `verify` |
-| Bug or regression | `bugfix`; if the cause is unclear, `investigate` or `debug` first |
+| Small bounded implementation with clear requirements | `implement`, then `verify` |
+| Bug or regression | `fix`; if the cause is unclear, `explore` or `debug` first |
 | New behavior or multi-file change | `feature`; for broad or ambiguous work, `plan` first |
 | Explicit plan/design request | `plan` |
-| Investigation, architecture question, root cause | `investigate` |
+| Investigation, architecture question, root cause | `explore` |
 | Feasibility or uncertain technology | `spike`, with a timebox and stop condition |
 | Behavior-preserving restructuring or simplification | `refactor` |
 | Check evidence for a change | `verify` |
 | Review a local diff | `review`; a pull request: `pr-review` |
 | Commit, write the PR description, open the PR | `ship` |
-| PR review comments or CI feedback | `pr-feedback` |
+| PR review comments or CI feedback | `pr-fix` |
 | Continue interrupted work | `resume` |
 | Release preparation | `release` |
 | Deployment / production operation | `deploy`. Only the user can start it: prepare what you can and ask them to run `/ae:deploy <target>`; never deploy without explicit approval |
-| Durable lesson, runbook, or decision | `document-solution` |
-| Unknown, incident, failing CI | `investigate` first; don't guess or silently widen scope |
+| Durable lesson, runbook, or decision | `record` |
+| Unknown, incident, failing CI | `explore` first; don't guess or silently widen scope |
 
-For complex changes the default path is `investigate` → `plan` → `execute` → `verify` → `review` → `ship`, skipping stages only when justified. Never run every skill mechanically. Escalate the route when new uncertainty, sensitive surfaces, migrations, external side effects, or failed checks appear. A read-only or "no change needed" outcome is valid.
+For complex changes the default path is `explore` → `plan` → `implement` → `verify` → `review` → `ship`, skipping stages only when justified. Never run every skill mechanically. Escalate the route when new uncertainty, sensitive surfaces, migrations, external side effects, or failed checks appear. A read-only or "no change needed" outcome is valid.
 
 ## Task records
 For multi-step, interrupted, medium/high-risk, or externally consequential work, create a task record:

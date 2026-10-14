@@ -1,5 +1,5 @@
 ---
-name: investigate
+name: explore
 description: Investigate a bug, unfamiliar codebase, feature request, or technical question before implementation. Use when the cause, relevant architecture, constraints, or safest approach is not yet clear.
 ---
 

@@ -1,6 +1,6 @@
 {
   "name": "ae",
-  "description": "Agentic Engineering: a lightweight, evidence-led development cycle for Claude Code. /ae routes a request to 18 specialist skills (retrospect, investigate, plan, execute, verify, review, ship, pr-review, pr-feedback, bugfix, feature, refactor, release, deploy and more), and every skill ends with a debrief of decisions, reading order and gaps so you learn from the work.",
+  "description": "Agentic Engineering: a lightweight, evidence-led development cycle for Claude Code. /ae routes a request to 18 specialist skills (explain, explore, plan, implement, verify, review, ship, pr-review, pr-fix, fix, feature, refactor, release, deploy and more), and every skill ends with a debrief of decisions, reading order and gaps so you learn from the work.",
   "author": {
     "name": "Ivan Torres Garcia"
   },

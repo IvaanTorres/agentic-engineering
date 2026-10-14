@@ -1,5 +1,5 @@
 ---
-name: document-solution
+name: record
 description: Record a verified engineering solution, architectural decision, or recurring failure pattern so future work can reuse it. Use after a nontrivial fix, surprising discovery, or repeated project-specific issue.
 ---
 

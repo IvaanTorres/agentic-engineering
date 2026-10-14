@@ -1,5 +1,5 @@
 ---
-name: execute
+name: implement
 description: Implement a bounded, approved coding task from a plan or clear request. Use when requirements are sufficiently clear and implementation is authorized.
 ---
 

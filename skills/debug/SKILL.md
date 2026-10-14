@@ -13,7 +13,7 @@ description: Diagnose and fix a reproducible or suspected software defect using 
 5. Find the root cause rather than masking a symptom. Do not delete tests, loosen assertions, swallow exceptions, or disable checks merely to get a pass.
 6. Apply the smallest safe fix and run the regression test plus relevant neighboring checks.
 7. If the issue is not reproducible, document what was tried and what evidence is missing. Do not fabricate certainty.
-8. Record the root cause, fix, evidence, and prevention lesson in the task artifacts. Suggest `/ae:document-solution` if the lesson is reusable.
+8. Record the root cause, fix, evidence, and prevention lesson in the task artifacts. Suggest `/ae:record` if the lesson is reusable.
 
 ## Output contract
 Report reproduction status, evidence, hypotheses tested, root cause or remaining uncertainty, fix, tests/results, and any residual risk.

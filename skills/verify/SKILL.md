@@ -12,7 +12,7 @@ description: Independently verify that a code change meets acceptance criteria a
 4. Inspect exit codes and relevant output. A command being started is not evidence of passing.
 5. Map every acceptance criterion to evidence: test name/output, build result, manual observation, or an explicit gap.
 6. Check for untested paths, regressions, accidental file changes, flaky/environment-dependent results, and missing migrations.
-7. If checks fail, report the failure and route to `/ae:debug` or `/ae:execute`. Do not approve completion while required checks are failing or unknown.
+7. If checks fail, report the failure and route to `/ae:debug` or `/ae:implement`. Do not approve completion while required checks are failing or unknown.
 8. Write `.agentic/tasks/<task-id>/verification.md` using `${CLAUDE_PLUGIN_ROOT}/templates/verification.md`, then check its structure with `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/validate_artifact.py .agentic/tasks/<task-id>/verification.md`.
 9. For medium-or-higher risk tasks, also get an independent verdict from the `ae:verification-auditor` subagent and record it. It supplements your own checks; it does not replace them.
 

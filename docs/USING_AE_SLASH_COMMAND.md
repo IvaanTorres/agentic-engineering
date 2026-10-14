@@ -12,7 +12,7 @@ Install the `ae` plugin (see the repository README), then start or restart Claud
 /ae:ae Resume the interrupted task in .agentic/tasks
 ```
 
-`/ae:ae` is a router and workflow contract, not a replacement for specialist skills. It reads the relevant specialist `SKILL.md` and follows that procedure. You can still call `/ae:bugfix`, `/ae:feature`, `/ae:verify`, `/ae:review`, etc. directly.
+`/ae:ae` is a router and workflow contract, not a replacement for specialist skills. It reads the relevant specialist `SKILL.md` and follows that procedure. You can still call `/ae:fix`, `/ae:feature`, `/ae:verify`, `/ae:review`, etc. directly.
 
 ## Install
 

@@ -34,7 +34,7 @@ Act as a skeptical reviewer. Prioritize real defects over style preferences. Do 
 Start with findings ordered by severity. If no findings are identified, say "No findings identified in this review" and state what was and was not examined. Never imply that absence of findings proves absence of bugs.
 
 ## Guardrails
-- Review only; do not silently modify files. Propose fixes and hand them to `/ae:execute`.
+- Review only; do not silently modify files. Propose fixes and hand them to `/ae:implement`.
 - Do not block a change for subjective preferences without a concrete benefit.
 - Never approve a production action; review and deployment authorization are separate.
 

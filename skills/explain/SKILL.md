@@ -1,10 +1,10 @@
 ---
-name: retrospect
+name: explain
 description: Explain and teach, read-only. Explains unfamiliar code, architecture, errors, libraries or concepts; walks through a pull request or branch as a story of decisions; or reconstructs what an agent did in a task. Use when the user wants to understand, learn from, or get a knowledge transfer on code or a change.
 argument-hint: <code, concept, PR/branch, or task id>
 ---
 
-# Retrospect — Explain and Learn
+# Explain and Learn
 
 Read-only by default. Do not modify files unless explicitly asked; if the user wants changes, route through `/ae:ae`.
 

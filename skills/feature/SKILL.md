@@ -6,14 +6,14 @@ description: Run the standard end-to-end workflow for a nontrivial feature: inve
 # Feature Workflow
 
 1. Classify risk and scope. Inspect repository instructions and existing changes.
-2. Use `/ae:investigate` and save the findings.
+2. Use `/ae:explore` and save the findings.
 3. Use `/ae:plan`; ensure acceptance criteria and test strategy are concrete.
 4. Present material assumptions and decisions to the user. Get clarification before implementation if needed.
-5. Use `/ae:execute` on bounded tasks, logging decisions in the execution log. Parallelize only independent tasks with clear file ownership and integration points.
+5. Use `/ae:implement` on bounded tasks, logging decisions in the execution log. Parallelize only independent tasks with clear file ownership and integration points.
 6. Do a simplification pass over the diff (see the simplify pass in `/ae:refactor`) when the implementation grew more complex than needed.
-7. Use `/ae:verify`; failures route to `/ae:debug` or `/ae:execute`, then verify again.
+7. Use `/ae:verify`; failures route to `/ae:debug` or `/ae:implement`, then verify again.
 8. Use `/ae:review`; address blocker/high findings and document any consciously accepted lower-severity risks.
-9. Use `/ae:document-solution` only if a durable lesson or decision emerged.
+9. Use `/ae:record` only if a durable lesson or decision emerged.
 10. When the user wants it shipped, use `/ae:ship` to commit and open the PR.
 11. Report changed files, acceptance criteria evidence, checks, review status, remaining risks, and the debrief from `${CLAUDE_PLUGIN_ROOT}/policies/knowledge-transfer.md`.
 12. Do not deploy as part of this workflow unless the user separately requests it and `/ae:deploy` obtains the required approval.
