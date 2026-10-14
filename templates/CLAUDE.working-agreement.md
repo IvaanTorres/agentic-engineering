@@ -21,7 +21,7 @@ Use the project's existing conventions and tests. Prefer the smallest safe chang
 - Carry this frame through planning, execution, debugging, tests, verification, review, and delivery. A specialist skill contributes a method; it does not reset the task context or override the user's goal.
 - When switching skills or resuming, pass/recover a concise context capsule with decisions, file references, changed files, exact verification outcomes, unresolved risks, next action, and approval boundaries. Reconcile it against current repository/Git state before relying on it.
 - Re-evaluate the persona only when new evidence or a material scope change justifies it. Keep facts distinct from hypotheses; never invent missing context or claim human credentials.
-- Follow `policies/context-and-persona-continuity.md`. Reuse an existing task artifact instead of creating competing notes. Keep trivial tasks lightweight.
+- The `ae` plugin's `lifecycle` policy describes the working frame and when to keep a task record. Reuse an existing task record instead of creating competing notes. Keep trivial tasks lightweight.
 
 ## Evidence and handoffs
 

@@ -70,8 +70,8 @@ Every skill that changes, reviews or explains something non-trivial ends with a 
 skills/           19 skills (ae entry point + 18 specialists)
 agents/           reviewer and verification-auditor subagents
 hooks/hooks.json  PreToolUse guard for high-impact Bash commands
-scripts/          task_state.py, workflow_gate.py, validate_artifact.py, guard_high_impact.py
-policies/         approval gates, evidence, testing, challenge questions, team/sprint workflow, knowledge transfer, expert lenses, lifecycle, safety
+scripts/          task_state.py (opt-in task records), validate_artifact.py, guard_high_impact.py (the hook)
+policies/         lifecycle, approval gates, evidence, testing, challenge questions, team/sprint workflow, knowledge transfer, safety
 templates/        task artifacts, plus CLAUDE.working-agreement.md to merge into a project's CLAUDE.md
 docs/             quickstart and /ae usage; docs/history/ holds the original toolkit's design docs and audits
 evals/            plugin eval cases (one folder each); scenarios.json is the original toolkit's scenario list
@@ -82,7 +82,13 @@ Skills read shared files through `${CLAUDE_PLUGIN_ROOT}`, which Claude Code repl
 
 ## Guard hook
 
-`hooks/hooks.json` runs `scripts/guard_high_impact.py` before every Bash command in every session where the plugin is enabled. It asks for confirmation before commands that look high-impact: `git push` (including force pushes), `terraform apply/destroy`, `kubectl/helm delete|upgrade`, database drops and migrations, package or container publishing, cloud CLI mutations, and recursive forced deletes (`rm` with both a recursive and a force flag, such as `rm -rf` or `rm -r -f`). It's a prompt, not a security boundary. To turn it off, disable the plugin or remove the hook from `hooks/hooks.json`.
+`hooks/hooks.json` runs `scripts/guard_high_impact.py` before every Bash command and every connector (MCP) tool call, in every session where the plugin is enabled. It asks for confirmation before:
+
+- **Team-visible actions:** `git push`, `gh pr|issue create/merge/comment/review/edit/close`, `gh api` writes, and connector tools whose names describe a write (for example Linear `save_issue`, GitHub `create_pull_request`, Slack `send_message`). Reads such as `gh pr view` or Linear `get_issue` pass through.
+- **Discarding local work:** `git reset --hard`, `git clean -f`, `git checkout -- .`, `git restore <path>`, `git branch -D`, `git stash drop|clear`, and recursive forced `rm`.
+- **Infrastructure, data and publishing:** `terraform apply/destroy`, `kubectl/helm delete|upgrade`, database drops and migrations, package or container publishing, cloud CLI mutations.
+
+It's a prompt, not a security boundary; `policies/approval-gates.md` is the rule the skills follow. To turn the hook off, disable the plugin or edit `hooks/hooks.json`.
 
 ## Development
 
@@ -104,7 +110,7 @@ When adding or changing a skill, follow `policies/skill-contract.md`.
 - `/ae:release` and `/ae:ae` hand deployment back to you, because only you can start `/ae:deploy`.
 - Every template, `validate_artifact.py`, the `verification-auditor` subagent and every policy is now used by at least one skill. Each specialist links the approval-gate and evidence policies, so they still apply when you call it directly.
 - The guard hook no longer prompts for harmless commands like `rm -i report.pdf`.
-- `triage` is folded into `/ae:ae` and `simplify` into `/ae:refactor`; the expert-role descriptions moved to `policies/expert-lenses.md` so `/ae:ae` loads less on every call.
+- `triage` is folded into `/ae:ae` and `simplify` into `/ae:refactor`; four overlapping lifecycle, continuity, expert-lens and task-state policies are merged into one short `policies/lifecycle.md`, task records are opt-in, and the metadata readiness gate (`workflow_gate.py`) was removed because nothing could ever satisfy it.
 - Added `/ae:ship`, the knowledge-transfer debrief, the execution-log decisions table, and the PR/branch and agent-task modes of `/ae:explain`.
 
 If you also uploaded the skills to claude.ai (Customize → Skills), remove those copies after installing the plugin, or you'll have two of every skill.

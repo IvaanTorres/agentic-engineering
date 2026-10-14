@@ -17,7 +17,7 @@ Create a plan that another execution pass can follow without re-discovering the 
 6. Include failure modes, security/privacy implications, observability, and rollback considerations where relevant.
 7. Prefer existing libraries and project patterns. Explain any new dependency or architectural abstraction.
 8. Identify decisions that need user input. Never assume approval for a risky action.
-9. Save to `.agentic/tasks/<task-id>/plan.md` using `${CLAUDE_PLUGIN_ROOT}/templates/plan.md`, and check it with `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/validate_artifact.py .agentic/tasks/<task-id>/plan.md`.
+9. If a task record exists, save to `.agentic/tasks/<task-id>/plan.md` using `${CLAUDE_PLUGIN_ROOT}/templates/plan.md`, and check it with `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/validate_artifact.py .agentic/tasks/<task-id>/plan.md`.
 10. For high or critical risk, add a threat model (`${CLAUDE_PLUGIN_ROOT}/templates/threat-model.md`) and a test strategy (`${CLAUDE_PLUGIN_ROOT}/templates/test-strategy.md`) next to the plan.
 
 ## Output contract
@@ -34,4 +34,4 @@ A plan must include:
 The plan must be proportional to the task. A one-line configuration change does not need a multi-phase project plan. Avoid vague steps such as "implement backend"; name the behavior and evidence required.
 
 ## Shared policies
-Follow `${CLAUDE_PLUGIN_ROOT}/policies/approval-gates.md` and `${CLAUDE_PLUGIN_ROOT}/policies/evidence-policy.md`, including when this skill is invoked directly rather than through `/ae:ae`. When the skill changed, reviewed, or explained something non-trivial, end with the debrief from `${CLAUDE_PLUGIN_ROOT}/policies/knowledge-transfer.md`.
+Follow `${CLAUDE_PLUGIN_ROOT}/policies/approval-gates.md` and `${CLAUDE_PLUGIN_ROOT}/policies/evidence-policy.md`, including when this skill is invoked directly rather than through `/ae:ae`. When the skill changed, reviewed, or explained something non-trivial, end with the debrief from `${CLAUDE_PLUGIN_ROOT}/policies/knowledge-transfer.md`, unless another skill invoked this one; then the outermost skill gives the single debrief.

@@ -2,6 +2,8 @@
 
 The user uses this toolkit to learn from the work, not only to get it done. Whenever a skill changed, reviewed, or explained something non-trivial, end with a **Debrief** section so the user can understand and own the result without re-reading the whole session.
 
+Give **one debrief per user request**. When a skill runs inside another skill (for example `explore`, `implement` or `verify` inside `feature`), it returns its findings to the outer skill without a debrief, and the outermost skill writes a single debrief covering the whole task.
+
 ## Debrief
 
 Keep it short and specific to this task; skip any item that genuinely does not apply, and say so for decisions.

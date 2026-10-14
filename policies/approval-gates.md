@@ -7,6 +7,8 @@
 - Modifying secrets, credentials, access permissions, security controls, or billing.
 - Force-pushing, rewriting shared history, or changing protected branches.
 - External actions with material cost, legal, privacy, or operational impact.
+- Team-visible actions: pushing, opening, editing or merging pull requests, posting PR or issue comments and reviews, re-requesting review, changing ticket status or fields, and sending messages. Draft them; act only after approval of the exact content and target.
+- Discarding local work: `git reset --hard`, `git clean -f`, `git checkout -- .`, `git restore <path>`, deleting branches or stashes.
 
 ## Approval request format
 State:

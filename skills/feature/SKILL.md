@@ -11,7 +11,7 @@ description: Run the standard end-to-end workflow for a nontrivial feature: inve
 4. Present material assumptions and decisions to the user, with the options and their trade-offs for anything they should choose. Get clarification before implementation if needed.
 5. Use `/ae:implement` on bounded tasks, logging decisions in the execution log. Parallelize only independent tasks with clear file ownership and integration points.
 6. Do a simplification pass over the diff (see the simplify pass in `/ae:refactor`) when the implementation grew more complex than needed.
-7. Use `/ae:verify`; failures route to `/ae:debug` or `/ae:implement`, then verify again.
+7. Use `/ae:verify`; failures route to `/ae:debug` or `/ae:implement`, then verify again. After two failed rounds, stop and report instead of looping.
 8. Use `/ae:review`; address blocker/high findings and document any consciously accepted lower-severity risks.
 9. Use `/ae:record` only if a durable lesson or decision emerged.
 10. When the user wants it shipped, use `/ae:ship` to commit and open the PR.
@@ -21,4 +21,4 @@ description: Run the standard end-to-end workflow for a nontrivial feature: inve
 Keep the process proportional. For trivial tasks, skip this composed workflow and use the smallest appropriate skill.
 
 ## Shared policies
-Follow `${CLAUDE_PLUGIN_ROOT}/policies/approval-gates.md` and `${CLAUDE_PLUGIN_ROOT}/policies/evidence-policy.md`, including when this skill is invoked directly rather than through `/ae:ae`. When the skill changed, reviewed, or explained something non-trivial, end with the debrief from `${CLAUDE_PLUGIN_ROOT}/policies/knowledge-transfer.md`.
+Follow `${CLAUDE_PLUGIN_ROOT}/policies/approval-gates.md` and `${CLAUDE_PLUGIN_ROOT}/policies/evidence-policy.md`, including when this skill is invoked directly rather than through `/ae:ae`. When the skill changed, reviewed, or explained something non-trivial, end with the debrief from `${CLAUDE_PLUGIN_ROOT}/policies/knowledge-transfer.md`, unless another skill invoked this one; then the outermost skill gives the single debrief.

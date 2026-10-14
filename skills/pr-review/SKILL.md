@@ -1,7 +1,7 @@
 ---
 name: pr-review
 description: Review a pull request against its exact base/head diff and its ticket, look beyond the diff for side effects, judge whether the tests protect the change, and challenge the reviewer with questions so they understand it. Read-only; drafts comments without posting. Use for any PR review.
-argument-hint: <PR number or URL> [quick]
+argument-hint: <PR number or URL> [quick] [re-review]
 ---
 
 # Pull Request Review
@@ -10,6 +10,9 @@ argument-hint: <PR number or URL> [quick]
 1. Identify the PR, base branch and SHA, head SHA, whether it is stacked on another PR (and the merge order), and whether local refs match the head. Use `gh pr view` / `gh pr diff`. If anything is unclear, ask or state the limitation.
 2. Review the exact diff; don't assume the current checkout equals the PR. To run code or tests, use a temporary worktree at the head SHA and remove it afterwards; never switch or modify the user's checkout.
 3. Read-only. Don't push, approve, merge, rebase, comment, or change ticket status unless separately requested and authorized.
+
+## Re-review (when the user says `re-review`, or has reviewed this PR before)
+Find the user's last review on the PR and the commit it was made on. Review only what changed since then (`<last-reviewed-sha>..<head>`, or the full diff again if history was rewritten), check each of the user's earlier comments and threads to see whether it was actually addressed, and report which are resolved, partly resolved, or ignored. Then continue with the steps below for the new changes.
 
 ## Gather context
 1. PR description, linked ticket and its acceptance criteria (see `${CLAUDE_PLUGIN_ROOT}/policies/team-workflow.md`), designs, prior review threads, bot reviews, and CI status for the head SHA (note checks that are skipped or disabled).
@@ -21,7 +24,8 @@ argument-hint: <PR number or URL> [quick]
 3. **Beyond the diff:** find callers and consumers of every changed function, type, endpoint, schema, event, or config key, including other services and the frontend/backend counterpart. Check that contracts still hold and look for side effects the author may not have seen.
 4. **Tests:** apply `${CLAUDE_PLUGIN_ROOT}/policies/testing.md`. Would the tests fail if the change were reverted? Which edge cases and failure paths are untested? Are mocks hiding the behavior that matters? Run the relevant tests in the temporary worktree when the environment allows; otherwise say they were not run and why.
 5. **UI changes:** list the states and flows a reviewer should click through (from the acceptance criteria and the design). If the user asks, run the app from the temporary worktree and check them in a browser as in `/ae:verify`.
-6. **Findings:** for each, give severity (Blocker, High, Medium, Low, Question), file/line, a concrete triggering scenario, impact, and a fix direction. Validate each against code or tests, deduplicate, and calibrate confidence; label uncertain concerns as questions. No style preferences as defects.
+6. **Second opinion:** for large or high-risk PRs, run the `ae:reviewer` subagent on the base...head diff with the acceptance criteria, merge its findings with yours, and note disagreements.
+7. **Findings:** for each, give severity (Blocker, High, Medium, Low, Question), file/line, a concrete triggering scenario, impact, and a fix direction. Validate each against code or tests, deduplicate, and calibrate confidence; label uncertain concerns as questions. No style preferences as defects.
 
 ## Challenge the reviewer
 Unless the user asked for a quick review, follow `${CLAUDE_PLUGIN_ROOT}/policies/challenge.md` before giving the verdict:
@@ -31,13 +35,13 @@ Unless the user asked for a quick review, follow `${CLAUDE_PLUGIN_ROOT}/policies
 
 ## Report
 1. Prioritized findings and open questions for the author.
-2. **Draft review comments** in the user's voice, each anchored to a file and line, ready to paste. Don't post them.
+2. **Draft review comments** in the user's voice, each anchored to a file and line. Don't post them. If the user approves, you may create them as a **pending** (unsubmitted) GitHub review so the user can edit and submit it themselves; never submit, approve, or request changes on their behalf.
 3. A suggested overall decision (approve, comment, request changes) with the reason; the user decides.
 4. Coverage: files and surfaces inspected, checks run or observed, CI freshness for the head SHA, and what was not examined. If there are no findings, say so and state the limitations; never imply proof of correctness.
-5. Save `.agentic/tasks/<task-id>/review.md` using `${CLAUDE_PLUGIN_ROOT}/templates/review.md` when durable tracking is useful, and check it with `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/validate_artifact.py .agentic/tasks/<task-id>/review.md`.
+5. If a task record exists, save `.agentic/tasks/<task-id>/review.md` using `${CLAUDE_PLUGIN_ROOT}/templates/review.md`, and check it with `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/validate_artifact.py .agentic/tasks/<task-id>/review.md`.
 
 ## Output contract
 PR identity, base, head, and stack; acceptance-criteria coverage; findings; challenge outcome; draft comments; suggested decision; CI and test evidence; coverage and limitations; then the debrief from `${CLAUDE_PLUGIN_ROOT}/policies/knowledge-transfer.md`. No mutation by default.
 
 ## Shared policies
-Follow `${CLAUDE_PLUGIN_ROOT}/policies/approval-gates.md` and `${CLAUDE_PLUGIN_ROOT}/policies/evidence-policy.md`, including when this skill is invoked directly rather than through `/ae:ae`. When the skill changed, reviewed, or explained something non-trivial, end with the debrief from `${CLAUDE_PLUGIN_ROOT}/policies/knowledge-transfer.md`.
+Follow `${CLAUDE_PLUGIN_ROOT}/policies/approval-gates.md` and `${CLAUDE_PLUGIN_ROOT}/policies/evidence-policy.md`, including when this skill is invoked directly rather than through `/ae:ae`. When the skill changed, reviewed, or explained something non-trivial, end with the debrief from `${CLAUDE_PLUGIN_ROOT}/policies/knowledge-transfer.md`, unless another skill invoked this one; then the outermost skill gives the single debrief.

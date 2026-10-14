@@ -96,6 +96,46 @@ class HighImpactGuardTests(unittest.TestCase):
             code, output = self.run_guard(command)
             self.assertEqual(output, "", command)
 
+    def test_team_visible_github_writes_request_permission(self):
+        for command in ("gh pr create --fill", "gh pr merge 5", "gh pr comment 5 -b hi",
+                        "gh api -X POST repos/o/r/issues/1/comments", "gh api repos/o/r/issues -f title=x"):
+            code, output = self.run_guard(command)
+            self.assertIn('"permissionDecision": "ask"', output, command)
+
+    def test_github_reads_do_not_prompt(self):
+        for command in ("gh pr view 5", "gh pr diff 5", "gh api repos/o/r/pulls/5/comments"):
+            code, output = self.run_guard(command)
+            self.assertEqual(output, "", command)
+
+    def test_discarding_local_work_requests_permission(self):
+        for command in ("git reset --hard HEAD~1", "git clean -fd", "git checkout -- .",
+                        "git restore src/a.py", "git branch -D old", "git stash drop"):
+            code, output = self.run_guard(command)
+            self.assertIn('"permissionDecision": "ask"', output, command)
+
+    def test_safe_local_git_does_not_prompt(self):
+        for command in ("git reset HEAD a.py", "git clean -n", "git checkout main",
+                        "git restore --staged a.py", "git branch -d merged", "git stash list"):
+            code, output = self.run_guard(command)
+            self.assertEqual(output, "", command)
+
+    def run_mcp(self, tool_name):
+        payload = json.dumps({"tool_name": tool_name, "tool_input": {}})
+        return subprocess.run(
+            [sys.executable, str(ROOT / "scripts" / "guard_high_impact.py")],
+            input=payload, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+        ).stdout
+
+    def test_connector_writes_request_permission(self):
+        for tool in ("mcp__claude_ai_Linear__save_issue", "mcp__plugin_github_github__create_pull_request",
+                     "mcp__plugin_github_github__pull_request_review_write", "mcp__claude_ai_Slack__slack_send_message"):
+            self.assertIn('"permissionDecision": "ask"', self.run_mcp(tool), tool)
+
+    def test_connector_reads_and_browser_do_not_prompt(self):
+        for tool in ("mcp__claude_ai_Linear__get_issue", "mcp__plugin_github_github__list_pull_requests",
+                     "mcp__plugin_chrome-devtools-mcp_chrome-devtools__click", "mcp__context7__resolve-library-id"):
+            self.assertEqual(self.run_mcp(tool), "", tool)
+
     def test_read_only_command_does_not_prompt(self):
         code, output = self.run_guard("git status --short")
         self.assertEqual(code, 0)
@@ -143,84 +183,6 @@ class ArtifactValidatorTests(unittest.TestCase):
     def test_review_template_structure_passes(self):
         proc = self.run_validator((ROOT / "templates" / "review.md").read_text(), "review.md")
         self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
-
-
-
-
-class WorkflowGateTests(unittest.TestCase):
-    def setUp(self):
-        self.temp = tempfile.TemporaryDirectory()
-        self.repo = Path(self.temp.name)
-        subprocess.run(["git", "init", "-q"], cwd=self.repo, check=True)
-        subprocess.run(["git", "config", "user.email", "test@example.com"], cwd=self.repo, check=True)
-        subprocess.run(["git", "config", "user.name", "Test"], cwd=self.repo, check=True)
-        (self.repo / "README.md").write_text("test\n", encoding="utf-8")
-        subprocess.run(["git", "add", "README.md"], cwd=self.repo, check=True)
-        subprocess.run(["git", "commit", "-qm", "fixture"], cwd=self.repo, check=True)
-        sys.path.insert(0, str(ROOT / "scripts"))
-        import workflow_gate
-        self.gate = workflow_gate
-        self.head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=self.repo, text=True, capture_output=True, check=True).stdout.strip()
-
-    def tearDown(self):
-        self.temp.cleanup()
-
-    def manifest(self, risk="low", intent="bug"):
-        return {
-            "schema_version": 1, "task_id": "gate-test", "intent": intent,
-            "status": "ready_to_ship", "risk": risk, "objective": "Test readiness",
-            "scope": {"in_scope": ["src"], "out_of_scope": []},
-            "repository": {"branch": "main", "base_sha": self.head, "head_sha": self.head},
-            "acceptance_criteria": ["expected behavior passes"], "dependencies": [],
-            "evidence": [{"name": "unit tests", "result": "PASS", "command": "python -m unittest",
-                          "head_sha": self.head, "timestamp": "2026-01-01T00:00:00Z",
-                          "environment": "test", "summary": "passed"}],
-            "approvals": [], "blockers": [], "updated_at": "2026-01-01T00:00:00Z"
-        }
-
-    def test_low_risk_passes_with_current_test_evidence(self):
-        data = self.manifest()
-        self.assertEqual(self.gate.readiness(data, self.head), [])
-
-    def test_stale_evidence_blocks(self):
-        data = self.manifest()
-        data["evidence"][0]["head_sha"] = "old-sha"
-        self.assertTrue(any("current-HEAD test/check" in b for b in self.gate.readiness(data, self.head)))
-
-    def test_medium_risk_requires_review(self):
-        data = self.manifest(risk="medium")
-        self.assertTrue(any("review/audit evidence" in b for b in self.gate.readiness(data, self.head)))
-        data["evidence"].append({"name": "review", "result": "PASS", "command": "review diff",
-                                 "head_sha": self.head, "timestamp": "2026-01-01T00:00:00Z",
-                                 "environment": "test", "summary": "no findings"})
-        self.assertEqual(self.gate.readiness(data, self.head), [])
-
-    def test_high_risk_requires_security_evidence(self):
-        data = self.manifest(risk="high")
-        data["evidence"].append({"name": "review", "result": "PASS", "command": "review diff",
-                                 "head_sha": self.head, "timestamp": "2026-01-01T00:00:00Z",
-                                 "environment": "test", "summary": "reviewed"})
-        self.assertTrue(any("security/threat evidence" in b for b in self.gate.readiness(data, self.head)))
-
-    def test_unresolved_blocker_prevents_readiness(self):
-        data = self.manifest()
-        data["blockers"] = ["dependency unavailable"]
-        self.assertTrue(any("unresolved blocker" in b for b in self.gate.readiness(data, self.head)))
-
-    def test_non_ship_ready_status_prevents_readiness(self):
-        data = self.manifest()
-        data["status"] = "in_progress"
-        self.assertTrue(any("expected 'ready_to_ship'" in b for b in self.gate.readiness(data, self.head)))
-
-    def test_critical_risk_requires_release_evidence(self):
-        data = self.manifest(risk="critical")
-        data["evidence"].extend([
-            {"name": "review", "result": "PASS", "command": "review diff", "head_sha": self.head,
-             "timestamp": "2026-01-01T00:00:00Z", "environment": "test", "summary": "reviewed"},
-            {"name": "security threat model", "result": "PASS", "command": "threat model", "head_sha": self.head,
-             "timestamp": "2026-01-01T00:00:00Z", "environment": "test", "summary": "reviewed"}
-        ])
-        self.assertTrue(any("release/rollback/preflight" in b for b in self.gate.readiness(data, self.head)))
 
 
 if __name__ == "__main__":

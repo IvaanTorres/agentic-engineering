@@ -18,7 +18,7 @@ Preparation only. This skill must not deploy to production, publish a release, r
 6. After approval, perform only the approved action using the repository's documented tooling. Do not bypass platform permission prompts or CI protections.
 7. Verify rollout with health checks, smoke tests, logs/metrics, and the agreed success criteria.
 8. If health checks fail, stop further rollout. Follow the documented rollback or mitigation plan only if that action was authorized; otherwise ask for approval.
-9. Write a release record using `${CLAUDE_PLUGIN_ROOT}/templates/release-record.md`, checked with `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/validate_artifact.py <path>`, with commit, environment, approver, timestamps, commands, verification results, and any incident/rollback.
+9. Write a release record using `${CLAUDE_PLUGIN_ROOT}/templates/release-record.md`, saved as `.agentic/tasks/<task-id>/release-record.md` and checked with `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/validate_artifact.py .agentic/tasks/<task-id>/release-record.md`, with commit, environment, approver, timestamps, commands, verification results, and any incident/rollback.
 
 ## Output contract
 Before approval: preflight report and a clear approval request. After authorized execution: actions performed, evidence, health status, and remaining risks.
@@ -33,4 +33,4 @@ Before approval: preflight report and a clear approval request. After authorized
 The `/ae:deploy` skill and hook prompts are defense-in-depth, not authorization mechanisms. Confirm the platform permission prompt, deployment-environment approval, protected branch/CI policy, and least-privilege identity independently. If any required control is missing, remain in preparation-only mode and report the blocker. Never treat an approval record or previous conversational approval as a reusable credential.
 
 ## Shared policies
-Follow `${CLAUDE_PLUGIN_ROOT}/policies/approval-gates.md` and `${CLAUDE_PLUGIN_ROOT}/policies/evidence-policy.md`, including when this skill is invoked directly rather than through `/ae:ae`. When the skill changed, reviewed, or explained something non-trivial, end with the debrief from `${CLAUDE_PLUGIN_ROOT}/policies/knowledge-transfer.md`.
+Follow `${CLAUDE_PLUGIN_ROOT}/policies/approval-gates.md` and `${CLAUDE_PLUGIN_ROOT}/policies/evidence-policy.md`, including when this skill is invoked directly rather than through `/ae:ae`. When the skill changed, reviewed, or explained something non-trivial, end with the debrief from `${CLAUDE_PLUGIN_ROOT}/policies/knowledge-transfer.md`, unless another skill invoked this one; then the outermost skill gives the single debrief.
