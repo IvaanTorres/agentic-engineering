@@ -5,7 +5,7 @@ Use the project's existing conventions and tests. Prefer the smallest safe chang
 ## Workflow routing
 
 - Start with `/triage` when intent, task size, or risk makes the right path unclear. Choose the lightest adequate workflow; a no-change or read-only outcome is valid.
-- Learning/explanation: `/learn` (read-only by default).
+- Learning/explanation: `/ae:retrospect` (read-only by default).
 - Small, clear, reversible change: implement narrowly, run targeted verification, and inspect the diff; do not generate a heavyweight plan by default.
 - Bug: reproduce, use `/debug` to identify root cause, add a regression test where practical, then `/verify` and `/review`.
 - Feature or cross-cutting change: `/investigate` → proportional `/plan` → bounded `/execute` tasks → `/simplify` when useful → `/verify` → `/review`.

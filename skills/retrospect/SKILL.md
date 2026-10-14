@@ -1,5 +1,5 @@
 ---
-name: learn
+name: retrospect
 description: Explain unfamiliar code, architecture, errors, libraries, or engineering concepts without changing files by default. Use when the user wants to understand or learn.
 ---
 

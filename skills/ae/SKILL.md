@@ -50,7 +50,7 @@ When `${CLAUDE_PLUGIN_ROOT}/scripts/workflow_gate.py` and a valid task manifest 
 Never automatically deploy, publish, run destructive production data operations, change security permissions, or rewrite shared Git history. Stop for explicit approval of the exact action and target, then rely on platform-level enforcement. If requirements materially change, update scope/criteria and revisit risk before proceeding. On resume, reconcile real files and Git state before trusting previous notes, and restore/update the context capsule before continuing.
 
 ## Routing
-- Read-only question or codebase orientation: `learn`.
+- Read-only question or codebase orientation: `retrospect`.
 - Bug/regression: `bugfix`; if root cause is unclear, `debug` or `investigate` first.
 - New behavior: `feature`; for broad/ambiguous/multi-stage work, `plan` first.
 - Explicit plan/design: `plan`.
@@ -71,7 +71,7 @@ Never automatically deploy, publish, run destructive production data operations,
 For straightforward bugs/features, follow the relevant specialist skill. For complex changes, use `investigate` → `plan` → `execute` → `verify` → `review`, skipping stages only when justified. Do not mechanically run every skill for trivial tasks.
 
 ## Script usage
-Shared policies, scripts and templates ship with this plugin under `${CLAUDE_PLUGIN_ROOT}`; task artifacts go in the current repository's `.agentic/` folder. Specialist skills are invoked as `ae:<name>` (for example `ae:learn`). Inspect `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/task_state.py --help` and other script help before invoking. The artifact validator checks structure, not whether evidence is true.
+Shared policies, scripts and templates ship with this plugin under `${CLAUDE_PLUGIN_ROOT}`; task artifacts go in the current repository's `.agentic/` folder. Specialist skills are invoked as `ae:<name>` (for example `ae:retrospect`). Inspect `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/task_state.py --help` and other script help before invoking. The artifact validator checks structure, not whether evidence is true.
 
 ## Status semantics
 Distinguish **implemented** (code changed), **verified** (relevant checks actually passed and evidence recorded), **blocked** (decision/approval/dependency/environment missing), and **not run** (check not executed).

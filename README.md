@@ -38,7 +38,7 @@ Everything is namespaced under `ae:`.
 |---|---|
 | `/ae:ae <request>` | Single entry point: routes to the right specialist skill |
 | `/ae:triage` | Unclear intent, size or risk |
-| `/ae:learn` | Read-only explanation of code, a branch or a concept |
+| `/ae:retrospect` | Read-only explanation of code, a branch or a concept |
 | `/ae:investigate`, `/ae:plan`, `/ae:execute` | Understand, plan and implement a change |
 | `/ae:feature`, `/ae:bugfix` | End-to-end workflows |
 | `/ae:debug`, `/ae:spike`, `/ae:refactor`, `/ae:simplify` | Focused engineering work |
@@ -79,7 +79,7 @@ claude plugin validate .                # plugin + marketplace manifests
 
 ## Differences from the account-upload kit
 
-- The `learn` skill is named `learn`. The upload kit had it as `retrospect` (folder `ae-learn/`), so `/ae` routed to a skill name that didn't exist.
+- The read-only explanation skill (the toolkit's `learn`) is named `retrospect`, and `/ae:ae` routes read-only questions to it. In the upload kit the name and the router disagreed, so routing failed.
 - Skills point to policies, scripts and templates under `${CLAUDE_PLUGIN_ROOT}` instead of assuming they were copied into each repo.
 - Cross-references between skills use the `/ae:<name>` form.
 
