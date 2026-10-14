@@ -22,7 +22,7 @@ description: Implement a bounded, approved coding task from a plan or clear requ
 8. Stop at approval gates. Do not deploy, publish, perform destructive migrations, alter secrets/permissions, or rewrite shared Git history without explicit approval.
 
 ## Output contract
-Report files changed, behavior implemented, tests run and results, deviations from plan, remaining risks, next recommended skill (`verify` by default), and the debrief from `${CLAUDE_PLUGIN_ROOT}/policies/knowledge-transfer.md`.
+Report files changed, behavior implemented, tests run and results, deviations from plan, remaining risks, next recommended skill (`ae:verify` by default), and the debrief from `${CLAUDE_PLUGIN_ROOT}/policies/knowledge-transfer.md`.
 
 ## Guardrails
 - Never claim a command ran if it did not.

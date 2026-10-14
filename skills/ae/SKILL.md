@@ -12,7 +12,7 @@ The user's request is available as `$ARGUMENTS`. `/ae:ae` (or `/ae`) is the fron
 ## Operating contract
 1. If `$ARGUMENTS` is empty, ask what the user wants to accomplish and offer the routes below.
 2. Inspect the current directory, project instructions, `git status --short` when Git is available, and existing `.agentic/tasks/` state. Preserve unrelated changes.
-3. Classify the request (below), choose the lightest adequate route, and invoke that specialist skill (`ae:<name>`) before following it. Ask only questions whose answers change the solution or risk; otherwise state low-risk assumptions.
+3. Classify the request (below), choose the lightest adequate route, and invoke that specialist skill (`ae:<name>`) before following it. Always use this plugin's `ae:` skills. Never substitute a built-in command, an account skill, or another plugin's skill with a similar name (for example a generic `review`, `plan`, `debug` or `simplify`). Ask only questions whose answers change the solution or risk; otherwise state low-risk assumptions.
 4. For non-trivial work, read `${CLAUDE_PLUGIN_ROOT}/policies/expert-lenses.md` and `${CLAUDE_PLUGIN_ROOT}/policies/context-and-persona-continuity.md`, establish the working frame, and keep it across skill hand-offs. Specialist skills inherit it instead of starting from a blank context.
 5. Work only within the requested scope. Run relevant checks and record exact commands and outcomes. Never claim a check ran or passed unless it did.
 6. Follow `${CLAUDE_PLUGIN_ROOT}/policies/agent-safety-and-tool-boundaries.md` and `${CLAUDE_PLUGIN_ROOT}/policies/approval-gates.md`. Ask before deployment, publishing, destructive data changes, secret/permission changes, irreversible operations, or shared Git history rewrites. A prompt or guard script is not a complete security boundary.
@@ -21,26 +21,26 @@ The user's request is available as `$ARGUMENTS`. `/ae:ae` (or `/ae`) is the fron
 ## Classify and route
 | Request | Route |
 |---|---|
-| Understand code, a concept, a PR/branch, or what an agent did | `explain` (read-only) |
+| Understand code, a concept, a PR/branch, or what an agent did | `ae:explain` (read-only) |
 | Tiny, clear, reversible change | Do it directly: inspect status, edit, targeted check, diff review, debrief |
-| Small bounded implementation with clear requirements | `implement`, then `verify` |
-| Bug or regression | `fix`; if the cause is unclear, `explore` or `debug` first |
-| New behavior or multi-file change | `feature`; for broad or ambiguous work, `plan` first |
-| Explicit plan/design request | `plan` |
-| Investigation, architecture question, root cause | `explore` |
-| Feasibility or uncertain technology | `spike`, with a timebox and stop condition |
-| Behavior-preserving restructuring or simplification | `refactor` |
-| Check evidence for a change | `verify` |
-| Review a local diff | `review`; a pull request: `pr-review` |
-| Commit, write the PR description, open the PR | `ship` |
-| PR review comments or CI feedback | `pr-fix` |
-| Continue interrupted work | `resume` |
-| Release preparation | `release` |
-| Deployment / production operation | `deploy`. Only the user can start it: prepare what you can and ask them to run `/ae:deploy <target>`; never deploy without explicit approval |
-| Durable lesson, runbook, or decision | `record` |
-| Unknown, incident, failing CI | `explore` first; don't guess or silently widen scope |
+| Small bounded implementation with clear requirements | `ae:implement`, then `ae:verify` |
+| Bug or regression | `ae:fix`; if the cause is unclear, `ae:explore` or `ae:debug` first |
+| New behavior or multi-file change | `ae:feature`; for broad or ambiguous work, `ae:plan` first |
+| Explicit plan/design request | `ae:plan` |
+| Investigation, architecture question, root cause | `ae:explore` |
+| Feasibility or uncertain technology | `ae:spike`, with a timebox and stop condition |
+| Behavior-preserving restructuring or simplification | `ae:refactor` |
+| Check evidence for a change | `ae:verify` |
+| Review a local diff | `ae:review`; a pull request: `ae:pr-review` |
+| Commit, write the PR description, open the PR | `ae:ship` |
+| PR review comments or CI feedback | `ae:pr-fix` |
+| Continue interrupted work | `ae:resume` |
+| Release preparation | `ae:release` |
+| Deployment / production operation | `ae:deploy`. Only the user can start it: prepare what you can and ask them to run `/ae:deploy <target>`; never deploy without explicit approval |
+| Durable lesson, runbook, or decision | `ae:record` |
+| Unknown, incident, failing CI | `ae:explore` first; don't guess or silently widen scope |
 
-For complex changes the default path is `explore` → `plan` → `implement` → `verify` → `review` → `ship`, skipping stages only when justified. Never run every skill mechanically. Escalate the route when new uncertainty, sensitive surfaces, migrations, external side effects, or failed checks appear. A read-only or "no change needed" outcome is valid.
+For complex changes the default path is `ae:explore` → `ae:plan` → `ae:implement` → `ae:verify` → `ae:review` → `ae:ship`, skipping stages only when justified. Never run every skill mechanically. Escalate the route when new uncertainty, sensitive surfaces, migrations, external side effects, or failed checks appear. A read-only or "no change needed" outcome is valid.
 
 ## Task records
 For multi-step, interrupted, medium/high-risk, or externally consequential work, create a task record:
