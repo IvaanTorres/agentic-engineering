@@ -9,7 +9,8 @@
 | Learn from a PR, branch, or an agent's task | `/ae:explain <PR, branch, or task id>` | The change as a story of decisions, with a reading order |
 | Fix a bug | `/ae:fix` | Reproduce → root cause → regression test → verify → review |
 | Make a small, clear change | `/ae <request>` or `/ae:implement` | Narrow edit → targeted check → diff scan |
-| Build a feature | `/ae:feature` | Investigate → proportional plan → implement slices → verify → review → ship |
+| Build a feature | `/ae:feature` | Investigate → interview you → proportional plan → implement slices → verify → review → ship |
+| Think a feature through before building it | `/ae:interview <feature or ticket>` | Codebase-grounded questions in rounds → implications of each answer → decisions, scenarios and assumptions for the plan |
 | Test feasibility | `/ae:spike` | Time-boxed experiment → recommendation → cleanup status |
 | Restructure or simplify without behavior changes | `/ae:refactor` | Baseline → small steps → regression checks |
 | Review a local diff | `/ae:review` | Evidence-based findings; report-only by default |

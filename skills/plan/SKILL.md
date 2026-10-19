@@ -10,6 +10,7 @@ Create a plan that another execution pass can follow without re-discovering the 
 
 ## Procedure
 1. Read the request, project instructions, relevant investigation, current git status, and existing plans.
+   For new behavior, use the interview record from `/ae:interview` if there is one. If there isn't, and the feature has open behavioral questions, run `/ae:interview` before drafting (or record why it was skipped). Its decisions become acceptance criteria and non-goals, its scenarios become test cases, and its assumptions and open questions carry into the plan.
 2. State the problem, intended outcome, explicit non-goals, assumptions, and acceptance criteria, taken from the ticket when there is one (`${CLAUDE_PLUGIN_ROOT}/policies/team-workflow.md`).
 3. Identify affected files/components, interfaces, data changes, dependencies, and migration/compatibility needs.
 4. Break work into small, ordered tasks. Mark dependencies and identify tasks that are genuinely independent. If the change is too big for one reviewable PR, group tasks into PR-sized slices that each ship on their own, behind a feature flag when behavior is incomplete.
@@ -18,7 +19,7 @@ Create a plan that another execution pass can follow without re-discovering the 
 7. Prefer existing libraries and project patterns. Explain any new dependency or architectural abstraction.
 8. Identify decisions that need user input. Never assume approval for a risky action.
 9. If a task record exists, save to `.agentic/tasks/<task-id>/plan.md` using `${CLAUDE_PLUGIN_ROOT}/templates/plan.md`, and check it with `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/validate_artifact.py .agentic/tasks/<task-id>/plan.md`.
-10. For high or critical risk, add a threat model (`${CLAUDE_PLUGIN_ROOT}/templates/threat-model.md`) and a test strategy (`${CLAUDE_PLUGIN_ROOT}/templates/test-strategy.md`) next to the plan.
+10. For high or critical risk, add a threat model (`${CLAUDE_PLUGIN_ROOT}/templates/threat-model.md`) and a test strategy (`${CLAUDE_PLUGIN_ROOT}/templates/test-strategy.md`) next to the plan. When the plan includes a risky data migration or a staged rollout, run `/ae:interview` in rollout mode and use the answers for the rollback section.
 
 11. **Second look (medium risk and above):** before implementation starts, run the `ae:reviewer` subagent in plan-review mode. Give it the plan, the acceptance criteria, the relevant findings from exploration, and the primary expert lens with its checklist line from `${CLAUDE_PLUGIN_ROOT}/policies/lifecycle.md`. Fix the plan for every valid point, and show the user the critique with what you changed and what you deliberately left out.
 
@@ -30,7 +31,7 @@ A plan must include:
 - test/verification strategy;
 - risk and rollback notes;
 - explicit approval gates;
-- unresolved questions and assumptions;
+- unresolved questions and assumptions, including those carried from the interview;
 - for medium risk and above, the reviewer's critique and how the plan changed.
 
 ## Quality bar

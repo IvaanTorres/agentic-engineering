@@ -8,12 +8,20 @@ Use the project's existing conventions and tests. Prefer the smallest safe chang
 - Learning/explanation: `/ae:explain` (read-only by default).
 - Small, clear, reversible change: implement narrowly, run targeted verification, and inspect the diff; do not generate a heavyweight plan by default.
 - Bug: reproduce, use `/ae:debug` to identify root cause, add a regression test where practical, then `/ae:verify` and `/ae:review`.
-- Feature or cross-cutting change: `/ae:explore` → proportional `/ae:plan` → bounded `/ae:implement` tasks → simplify pass when useful → `/ae:verify` → `/ae:review` → `/ae:ship`.
+- Feature or cross-cutting change: `/ae:explore` → `/ae:interview` (per the setting below) → proportional `/ae:plan` → bounded `/ae:implement` tasks → simplify pass when useful → `/ae:verify` → `/ae:review` → `/ae:ship`.
 - Spike/feasibility: `/ae:spike` with a timebox, isolated experiment, explicit recommendation, and cleanup status.
 - Refactor: `/ae:refactor` with behavior invariants and a baseline before structural changes.
 - PR review: `/ae:pr-review` against the exact base/head, read-only by default. PR comments or CI feedback: `/ae:pr-fix`.
 - Interrupted work: `/ae:resume` and reconcile artifacts with actual repository state before continuing.
 - Release or production change: `/ae:release` and `/ae:deploy`; do not perform production-impacting actions without explicit human approval.
+
+## Interviews
+
+- Interviews: risky
+- Interview rounds: 3
+- Product rules: docs/product-rules.md
+
+`Interviews` decides when `/ae:interview` questions you before work is planned: `always`, `risky` (medium risk and up, or when a guess could change data, permissions, a public contract or what users see), or `on-request`. Saying "interview me" or "quick" in a request overrides it for that task.
 
 ## Task persona and context continuity
 

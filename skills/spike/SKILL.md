@@ -5,7 +5,7 @@ description: Time-box a technical investigation or prototype to answer a specifi
 
 # Spike / Prototype
 
-1. Write the question, decision it will inform, time/effort budget, and success/failure criteria.
+1. Write the question, decision it will inform, time/effort budget, and success/failure criteria. If any of these isn't explicit in the request, run `/ae:interview` in spike mode first (usually one round) instead of guessing them.
 2. Inspect repository state and isolate experiments in a branch, worktree, temporary directory, or clearly marked files.
 3. Prefer the smallest experiment that distinguishes alternatives. Avoid production credentials/data and irreversible side effects.
 4. Record commands, environment assumptions, observations, and limitations; distinguish measured results from speculation.

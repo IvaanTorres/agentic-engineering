@@ -12,7 +12,7 @@ argument-hint: <optional ticket, base branch, or "quick">
 3. Read the repository's contribution rules: `CONTRIBUTING`, PR templates (`.github/pull_request_template.md`, `.github/PULL_REQUEST_TEMPLATE/`), commit conventions visible in `git log`, branch naming, and any definition of done.
 
 ## 2. Self-review
-1. Map each acceptance criterion to the code and tests that satisfy it; list anything unmet or done differently.
+1. Map each acceptance criterion to the code and tests that satisfy it; list anything unmet or done differently. If there is an interview record, check its decisions and scenarios too, and list any the change doesn't honor.
 2. Look beyond the diff: callers and consumers of changed symbols, contracts, config, migrations, feature flags, and the other side of any API.
 3. Check tests against `${CLAUDE_PLUGIN_ROOT}/policies/testing.md`. If a required test is missing, say so and offer to add it (via `/ae:implement`) before shipping.
 4. Catch accidental content: debug output, commented-out code, stray TODOs, unrelated files, generated churn, secrets, local config, `.agentic/` artifacts.
@@ -32,7 +32,7 @@ Unless the user asked for a quick ship:
 3. Draft the PR description, following the repository template when there is one:
    - **What and why:** the problem, the approach, and the ticket link.
    - **Acceptance criteria:** each one and where it is satisfied.
-   - **Decisions:** material choices and rejected alternatives.
+   - **Decisions:** material choices and rejected alternatives, including product decisions agreed in the interview.
    - **How to review:** reading order and the riskiest parts.
    - **How to test:** commands run and results at the current HEAD; manual steps for QA; what was not tested and why.
    - **Risks and rollout:** side effects considered, migrations, feature flags, backward compatibility.

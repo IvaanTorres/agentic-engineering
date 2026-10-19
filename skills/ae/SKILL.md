@@ -13,10 +13,13 @@ The user's request is available as `$ARGUMENTS`. `/ae:ae` (or `/ae`) is the fron
 1. If `$ARGUMENTS` is empty, ask what the user wants to accomplish and offer the routes below.
 2. Inspect the current directory, project instructions, `git status --short` when Git is available, and existing `.agentic/tasks/` state. Preserve unrelated changes. If the request names a ticket, read it first and work to its acceptance criteria (`${CLAUDE_PLUGIN_ROOT}/policies/team-workflow.md`).
 3. Classify the request (below), choose the lightest adequate route, and invoke that specialist skill (`ae:<name>`) before following it. Always use this plugin's `ae:` skills. Never substitute a built-in command, an account skill, or another plugin's skill with a similar name (for example a generic `review`, `plan`, `debug` or `simplify`). Ask only questions whose answers change the solution or risk; otherwise state low-risk assumptions.
-4. For non-trivial work, read `${CLAUDE_PLUGIN_ROOT}/policies/lifecycle.md`: pick the path for the task's risk, establish the working frame and expert lens, and keep them across skill hand-offs. Specialist skills inherit the frame instead of starting from a blank context.
-5. Work only within the requested scope. Run relevant checks and record exact commands and outcomes. Never claim a check ran or passed unless it did.
-6. Follow `${CLAUDE_PLUGIN_ROOT}/policies/agent-safety-and-tool-boundaries.md` and `${CLAUDE_PLUGIN_ROOT}/policies/approval-gates.md`. Ask before deployment, publishing, destructive data changes, secret/permission changes, irreversible operations, or shared Git history rewrites. A prompt or guard script is not a complete security boundary.
-7. Finish with outcome, changed files, verification evidence, approvals requested/obtained, unresolved risks, the next recommended action, and the debrief from `${CLAUDE_PLUGIN_ROOT}/policies/knowledge-transfer.md`.
+4. Make the first line of your first reply the classification, so the user can correct it: `Route: <skill> · risk: <low|medium|high|critical> (<why>) · plan: <yes|no> (<why>)`. Risk sets what must happen, however small the diff:
+   - **medium or higher** (a mistake could let the wrong person do something, charge or refund the wrong amount, expose or lose data, or break another consumer of a contract; new display or helper code covered by its tests is usually low): before reporting the change done, run `ae:review`, which brings in the independent `ae:reviewer` subagent.
+   - **high or critical:** also wait for the user to confirm the route before editing. If no human can answer, continue, run the reviewer, and list the confirmation under approvals still needed.
+5. For non-trivial work, read `${CLAUDE_PLUGIN_ROOT}/policies/lifecycle.md`: pick the path for the task's risk, establish the working frame and expert lens, and keep them across skill hand-offs. Specialist skills inherit the frame instead of starting from a blank context.
+6. Work only within the requested scope. Run relevant checks and record exact commands and outcomes. Never claim a check ran or passed unless it did.
+7. Follow `${CLAUDE_PLUGIN_ROOT}/policies/agent-safety-and-tool-boundaries.md` and `${CLAUDE_PLUGIN_ROOT}/policies/approval-gates.md`. Ask before deployment, publishing, destructive data changes, secret/permission changes, irreversible operations, or shared Git history rewrites. A prompt or guard script is not a complete security boundary.
+8. Finish with outcome, changed files, verification evidence, approvals requested/obtained, unresolved risks, the next recommended action, and the debrief from `${CLAUDE_PLUGIN_ROOT}/policies/knowledge-transfer.md`.
 
 ## Classify and route
 | Request | Route |
@@ -27,6 +30,7 @@ The user's request is available as `$ARGUMENTS`. `/ae:ae` (or `/ae`) is the fron
 | Bug or regression | `ae:fix`; if the cause is unclear, `ae:explore` or `ae:debug` first |
 | New behavior or multi-file change | `ae:feature`; for broad or ambiguous work, `ae:plan` first |
 | Explicit plan/design request | `ae:plan` |
+| "Interview me", think a feature, bug, spike or rollout through, or a ticket too vague to build | `ae:interview` in the matching mode (after a short `ae:explore` when the code matters) |
 | Investigation, architecture question, root cause | `ae:explore` |
 | Feasibility or uncertain technology | `ae:spike`, with a timebox and stop condition |
 | Behavior-preserving restructuring or simplification | `ae:refactor` |
@@ -42,7 +46,7 @@ The user's request is available as `$ARGUMENTS`. `/ae:ae` (or `/ae`) is the fron
 | Durable lesson, runbook, or decision | `ae:record` |
 | Unknown problem or incident (not tied to an open PR) | `ae:explore` first; don't guess or silently widen scope |
 
-For complex changes the default path is `ae:explore` → `ae:plan` → `ae:implement` → `ae:verify` → `ae:review` → `ae:ship`, skipping stages only when justified. Never run every skill mechanically. Escalate the route when new uncertainty, sensitive surfaces, migrations, external side effects, or failed checks appear. A read-only or "no change needed" outcome is valid.
+For complex changes the default path is `ae:explore` → `ae:interview` (new behavior) → `ae:plan` → `ae:implement` → `ae:verify` → `ae:review` → `ae:ship`, skipping stages only when justified. Never run every skill mechanically. Escalate the route when new uncertainty, sensitive surfaces, migrations, external side effects, or failed checks appear. A read-only or "no change needed" outcome is valid.
 
 ## Task records (opt-in)
 Only for high-risk, multi-session, or interrupted work (see `${CLAUDE_PLUGIN_ROOT}/policies/lifecycle.md`):

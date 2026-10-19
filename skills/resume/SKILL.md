@@ -6,7 +6,7 @@ description: Safely resume an interrupted or long-running engineering task from 
 # Resume Work
 
 1. Inspect `git status`, diff, recent relevant commits, and `.agentic/tasks/` artifacts. Never reset, clean, stash, or overwrite work to make state tidy.
-2. Compare task plan, execution log, verification, review findings, and actual repository state. Treat artifacts as possibly stale.
+2. Compare task plan, interview record, execution log, verification, review findings, and actual repository state. Treat artifacts as possibly stale. Carry the interview's decisions and open questions forward; don't re-ask what was already decided.
 3. Re-run cheap, safe checks needed to establish current state; verify commit/base/head if work relates to a PR.
 4. Summarize completed, incomplete, blocked, and uncertain work; list uncommitted changes and risks.
 5. Continue only from a safe, understood point. If task identity, user intent, or approval scope is unclear, ask before side effects.

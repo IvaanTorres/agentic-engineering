@@ -7,12 +7,13 @@ description: Prepare a release candidate, verify release readiness, and coordina
 
 1. Confirm requested version, target environment, release scope, and deployment owner.
 2. Review merged changes since the last release (PRs and their tickets), draft release notes from them, and check CI, tests, build artifact, migrations, feature flags, compatibility, and rollback.
-3. Use `/ae:verify` and `/ae:review` against the release candidate.
-4. Produce a release checklist and unresolved-risk list. Any blocker or required check failure blocks release.
-5. Stop and hand off. Only the user can start `/ae:deploy`, so give them the checklist and ask them to run `/ae:deploy <target>` for preflight and approval. Do not deploy from this skill or bypass the deploy approval gate.
-6. After authorized deployment, verify health and smoke tests; record results.
-7. If rollout is unhealthy, stop and follow the pre-approved mitigation/rollback path.
-8. Produce a release record using `${CLAUDE_PLUGIN_ROOT}/templates/release-record.md` (add `${CLAUDE_PLUGIN_ROOT}/templates/incident-and-rollback.md` if the rollout had an incident or rollback), save it as `.agentic/tasks/<task-id>/release-record.md` (or the repository's own release-notes location) and check it with `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/validate_artifact.py .agentic/tasks/<task-id>/release-record.md`, and document lessons from incidents or unusual failures.
+3. Unless the release is routine (no migrations, flag changes, breaking changes or new dependencies), run `/ae:interview` in rollout mode on the draft: order of steps, compatibility windows, flags, monitoring, rollback triggers and owners. Put the answers in the release checklist.
+4. Use `/ae:verify` and `/ae:review` against the release candidate.
+5. Produce a release checklist and unresolved-risk list. Any blocker or required check failure blocks release.
+6. Stop and hand off. Only the user can start `/ae:deploy`, so give them the checklist and ask them to run `/ae:deploy <target>` for preflight and approval. Do not deploy from this skill or bypass the deploy approval gate.
+7. After authorized deployment, verify health and smoke tests; record results.
+8. If rollout is unhealthy, stop and follow the pre-approved mitigation/rollback path.
+9. Produce a release record using `${CLAUDE_PLUGIN_ROOT}/templates/release-record.md` (add `${CLAUDE_PLUGIN_ROOT}/templates/incident-and-rollback.md` if the rollout had an incident or rollback), save it as `.agentic/tasks/<task-id>/release-record.md` (or the repository's own release-notes location) and check it with `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/validate_artifact.py .agentic/tasks/<task-id>/release-record.md`, and document lessons from incidents or unusual failures.
 
 ## Shared policies
 Follow `${CLAUDE_PLUGIN_ROOT}/policies/approval-gates.md` and `${CLAUDE_PLUGIN_ROOT}/policies/evidence-policy.md`, including when this skill is invoked directly rather than through `/ae:ae`. When the skill changed, reviewed, or explained something non-trivial, end with the debrief from `${CLAUDE_PLUGIN_ROOT}/policies/knowledge-transfer.md`, unless another skill invoked this one; then the outermost skill gives the single debrief. If you were invoked directly rather than through `/ae:ae` or another skill, and the work is non-trivial, first pick the expert lens and working frame from `${CLAUDE_PLUGIN_ROOT}/policies/lifecycle.md` and apply that lens's checklist throughout.

@@ -19,10 +19,11 @@ Produce an evidence-based picture of the problem and the relevant parts of the r
    - **Unknowns** requiring clarification or further experiments.
 6. Identify likely affected components, compatibility constraints, security/privacy concerns, and regression risks.
 7. Note problems found outside the scope as follow-ups instead of folding them in. Recommend the smallest useful next step. Ask a focused question only if an unresolved decision materially changes the solution.
-8. If a task record exists, save findings to `.agentic/tasks/<task-id>/investigation.md` using `${CLAUDE_PLUGIN_ROOT}/templates/investigation.md`, and check it with `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/validate_artifact.py .agentic/tasks/<task-id>/investigation.md`.
+8. For a feature request (new behavior, not a bug or a pure investigation), once the relevant code is understood, run `/ae:interview` with these findings so the user decides the paths, edge cases and trade-offs before planning. Skip it under the conditions that skill lists. When `/ae:feature` invoked this skill, leave the interview to it.
+9. If a task record exists, save findings to `.agentic/tasks/<task-id>/investigation.md` using `${CLAUDE_PLUGIN_ROOT}/templates/investigation.md`, and check it with `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/validate_artifact.py .agentic/tasks/<task-id>/investigation.md`.
 
 ## Output contract
-Return: summary, scope, relevant files, facts, hypotheses, risks, unknowns, recommended next step, and commands/tests run with results.
+Return: summary, scope, relevant files, facts, hypotheses, risks, unknowns, recommended next step, and commands/tests run with results. For a feature request, add the interview record, or the reason it was skipped.
 
 ## Guardrails
 - Do not state a hypothesis as a fact.

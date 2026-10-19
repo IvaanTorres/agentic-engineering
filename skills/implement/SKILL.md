@@ -14,7 +14,7 @@ description: Implement a bounded, approved coding task from a plan or clear requ
 ## Procedure
 1. Select the smallest task that can be implemented and verified independently.
 2. Follow existing architecture, style, and dependency conventions.
-3. Write tests by default, following `${CLAUDE_PLUGIN_ROOT}/policies/testing.md`: for behavior changes and bug fixes they are required (a regression test that fails before the fix), and skipping one needs a reason recorded in the execution log.
+3. Write tests by default, following `${CLAUDE_PLUGIN_ROOT}/policies/testing.md`: for behavior changes and bug fixes they are required (a regression test that fails before the fix), and skipping one needs a reason recorded in the execution log. Derive each test from a real scenario (an acceptance criterion, an agreed interview scenario, the reproduced bug), write it before the code when the scenario is clear, and avoid the false-green patterns listed in that policy. For each new test, record the change that would make it fail, and run that mutation when it's cheap.
 4. Make small, reviewable changes. Do not mix unrelated cleanup into the task; note it as a follow-up instead.
 5. Run targeted tests/checks after each meaningful change; record exact commands and outcomes.
 6. If a check fails, determine whether the failure is caused by the change, pre-existing, or environmental. Do not suppress it without evidence.
@@ -22,7 +22,7 @@ description: Implement a bounded, approved coding task from a plan or clear requ
 8. Stop at approval gates. Do not deploy, publish, perform destructive migrations, alter secrets/permissions, or rewrite shared Git history without explicit approval.
 
 ## Output contract
-Report files changed, behavior implemented, tests run and results, deviations from plan, remaining risks, next recommended skill (`ae:verify` by default), and the debrief from `${CLAUDE_PLUGIN_ROOT}/policies/knowledge-transfer.md`.
+Report files changed, behavior implemented, tests run and results (each new test with its scenario and the mutation that makes it fail), deviations from plan, remaining risks, next recommended skill (`ae:verify` by default), and the debrief from `${CLAUDE_PLUGIN_ROOT}/policies/knowledge-transfer.md`.
 
 ## Guardrails
 - Never claim a command ran if it did not.

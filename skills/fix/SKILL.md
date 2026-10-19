@@ -7,6 +7,7 @@ description: Run an evidence-led bug-fix workflow: investigate, reproduce, debug
 
 1. Use `/ae:explore` to map the failure and relevant code.
 2. Reproduce the issue or state explicitly why it cannot be reproduced.
+   If the ticket, docs, tests and code disagree on the correct behavior, settle it with `/ae:interview` (behavior mode) before fixing; in hotfix mode ask only the deciding question.
 3. Use `/ae:debug` to test hypotheses and identify root cause.
 4. Write a regression test that fails before the fix (`${CLAUDE_PLUGIN_ROOT}/policies/testing.md`), then implement the smallest fix and show the test passing. If no test is feasible, record why.
    - **Hotfix mode** (urgent production bug): target the branch the team releases from, keep the diff minimal, note any backport, and put cleanup in a follow-up (`${CLAUDE_PLUGIN_ROOT}/policies/team-workflow.md`).

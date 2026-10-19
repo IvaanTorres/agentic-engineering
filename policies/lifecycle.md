@@ -20,7 +20,7 @@ How `/ae:ae` runs a task end to end. Read this for non-trivial work; trivial and
 | High | add design and threat analysis, rollback plan, `ae:reviewer` and `ae:verification-auditor` |
 | Critical / production / destructive | stop at a proposal or preflight until the user approves the exact action and target |
 
-State why you skip an expected stage on medium-or-higher risk. Stop and report after two failed verify → fix rounds instead of looping.
+Show the risk and route in one line before starting (`Route: … · risk: … (why) · plan: yes|no (why)`), including when a skill is invoked directly, so the user can correct it early. Skip the plan when the diff can be described in one sentence. State why you skip an expected stage on medium-or-higher risk. Stop and report after two failed verify → fix rounds instead of looping.
 
 ## Working frame
 For non-trivial work, keep one frame across every skill hand-off: **objective**, **primary lens** (below) and only the secondary lenses that matter, **repository facts and conventions**, **risk and quality bar**, **acceptance criteria**, **open assumptions**, **decisions so far**, **approval boundaries**. Specialist skills add method; they don't reset the frame. Pass the primary lens and its checklist to any subagent you delegate to, such as `ae:reviewer`. The user's latest instruction updates the objective. Change the lens only when evidence changes the problem, and say why. Keep facts, inferences and hypotheses distinct; never fill gaps with invented repository details.

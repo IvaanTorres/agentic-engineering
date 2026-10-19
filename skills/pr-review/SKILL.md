@@ -17,6 +17,7 @@ Find the user's last review on the PR and the commit it was made on. Review only
 ## Gather context
 1. PR description, linked ticket and its acceptance criteria (see `${CLAUDE_PLUGIN_ROOT}/policies/team-workflow.md`), designs, prior review threads, bot reviews, and CI status for the head SHA (note checks that are skipped or disabled).
 2. Repository conventions that apply: `CLAUDE.md`, contribution guide, PR template, nearby code style.
+3. If the PR has no linked ticket and its description doesn't say what it should do, reconstruct the intent from the diff and commits, then run `/ae:interview` in intent mode (one round, 2 to 4 questions) to confirm it before reviewing. Use the confirmed intent as the acceptance criteria. In a quick review, state the reconstructed intent as an assumption instead.
 
 ## Review
 1. **Requirements:** map each acceptance criterion to the code and tests that satisfy it. Flag criteria that are unmet, partially met, or met differently than specified, and behavior the PR adds that the ticket didn't ask for.

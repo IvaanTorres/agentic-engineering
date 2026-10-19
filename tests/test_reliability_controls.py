@@ -184,6 +184,16 @@ class ArtifactValidatorTests(unittest.TestCase):
         proc = self.run_validator((ROOT / "templates" / "review.md").read_text(), "review.md")
         self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
 
+    def test_interview_template_structure_passes(self):
+        proc = self.run_validator((ROOT / "templates" / "interview.md").read_text(), "interview.md")
+        self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+
+    def test_interview_requires_decisions_table(self):
+        content = "## Feature map\n## Decisions\n## Scenarios and edge cases\n## Assumptions\n## Changes for the plan\n## End-to-end verification\n"
+        proc = self.run_validator(content, "interview.md")
+        self.assertEqual(proc.returncode, 1)
+        self.assertIn("table header: Implication", proc.stdout)
+
 
 if __name__ == "__main__":
     unittest.main()

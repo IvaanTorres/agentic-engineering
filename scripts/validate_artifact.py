@@ -24,6 +24,7 @@ REQUIRED_HEADINGS = {
     ],
     "review.md": ["Findings (highest severity first)", "Checks performed", "Verdict"],
     "execution-log.md": ["Decisions", "Steps", "Deviations from plan"],
+    "interview.md": ["Feature map", "Decisions", "Scenarios and edge cases", "Assumptions", "Changes for the plan", "End-to-end verification"],
 }
 REQUIRED_LABELS = {
     "release-record.md": ["Environment", "Explicit approver and approval reference", "Smoke tests / health checks", "Result"]
@@ -31,6 +32,7 @@ REQUIRED_LABELS = {
 REQUIRED_TABLE_HEADERS = {
     "verification.md": ["Acceptance criterion", "Evidence / command", "Result (PASS/FAIL/BLOCKED)"],
     "execution-log.md": ["Decision", "Alternatives considered", "Why this one"],
+    "interview.md": ["Question", "Answer", "Implication", "Scenario", "Given / When", "Expected behavior"],
 }
 
 def normalize(text: str) -> str:

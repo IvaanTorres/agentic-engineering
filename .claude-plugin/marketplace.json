@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "ae",
-      "description": "Agentic Engineering: /ae entry point, 18 specialist skills, debriefs for learning, policies, scripts, templates and a guard hook.",
+      "description": "Agentic Engineering: /ae entry point, 19 specialist skills, debriefs for learning, policies, scripts, templates and a guard hook.",
       "source": "."
     }
   ]

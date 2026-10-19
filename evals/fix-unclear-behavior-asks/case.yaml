@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: fix-unclear-behavior-asks
+runs: 1
+context:
+  scaffold_script: setup.sh
